@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RustlessPass</title>
+  <meta name="description" content="A stateless Password Manager." />
+
+  <!-- Pico.css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.orange.min.css" />
+  <!-- Custom styles for this example -->
+  <link rel="stylesheet" href="custom.css" />
+</head>
+
+<body>
+  <!-- Nav -->
+  <nav class="container-fluid">
+    <ul>
+      <li>
+        <a href="./" onclick="event.preventDefault()"><strong>RustlessPass</strong></a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <details class="dropdown">
+          <summary>Theme</summary>
+          <ul dir="rtl">
+            <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+            <li><a href="#" data-theme-switcher="light">Light</a></li>
+            <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </nav>
+  <!-- ./ Nav -->
+
+  <!-- Main -->
+  <main class="container">
+    <article>
+      <div>
+        <hgroup class="title">
+          <h1>Stateless Password Manager</h1>
+          <p>Remember only one master password to access your passwords at any time, on any device, without the need for
+            syncing.</p>
+        </hgroup>
+        <form>
+          <input type="text" name="website" placeholder="Website" aria-label="Website" autocomplete="website"
+            required />
+          <input type="text" name="username" placeholder="Username" aria-label="Username" autocomplete="username"
+            required />
+          <input type="password" name="password" placeholder="Password" aria-label="Password"
+            autocomplete="current-password" required />
+          <fieldset>
+            <nav>
+              <label for="a-z">
+                <input type="checkbox" role="switch" id="a-z" name="a-z" checked />
+                a-z
+              </label>
+              <label for="A-Z">
+                <input type="checkbox" role="switch" id="A-Z" name="A-Z" checked />
+                A-Z
+              </label>
+              <label for="0-9">
+                <input type="checkbox" role="switch" id="0-9" name="0-9" checked />
+                0-9
+              </label>
+              <label for="%!@">
+                <input type="checkbox" role="switch" id="%!@" name="%!@" checked />
+                %!@
+              </label>
+            </nav>
+            <div class="grid" style="padding: 0rem;">
+              <div>
+                <label>
+                  Size: <output id="sizeOutput">16</output>
+                  <input type="range" id="sizeRange" value="16" min="1" max="100"
+                    oninput="sizeOutput.value = sizeRange.value">
+                </label>
+              </div>
+              <div>
+                <label>
+                  Counter: <output id="counterOutput">1</output>
+                  <input type="range" id="counterRange" value="1" min="1" max="100"
+                    oninput="counterOutput.value = counterRange.value">
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+          <button type="submit" class="contrast">Generate and copy</button>
+        </form>
+      </div>
+    </article>
+  </main>
+  <!-- ./ Main -->
+
+  <!-- Footer -->
+  <footer class="container-fluid">
+    <small>Built with <a href="https://picocss.com" class="secondary">Pico</a> •
+      <a href="https://github.com/picocss/examples/tree/master/v1-sign-in/" class="secondary">Source code</a></small>
+  </footer>
+  <!-- ./ Footer -->
+
+  <!-- Minimal theme switcher -->
+  <script src="js/minimal-theme-switcher.js"></script>
+</body>
+
+</html>
