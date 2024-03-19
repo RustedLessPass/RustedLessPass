@@ -3,7 +3,8 @@
 mod text_input;
 
 mod app;
-mod password;
+mod slider;
+mod settings;
 
 use app::App;
 
