@@ -1,0 +1,12 @@
+[web]
+# The path to your HTML entry file
+entry = "index.html"
+
+[web.dev]
+# Development-specific configurations
+port = 8080
+watch = true
+
+[web.build]
+# Production build configurations
+dist = "dist"

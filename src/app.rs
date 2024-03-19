@@ -1,55 +1,40 @@
-extern crate zxcvbn;
-
 use yew::prelude::*;
-use zxcvbn::zxcvbn;
 
-use crate::password::generate_password;
-use crate::text_input::TextInput;
+use crate::settings::Settings;
+use crate::slider::Slider;
+// use crate::text_input::TextInput;
 
 pub enum Msg {
+    ChangeSettings(Settings),
     // SetPassword(String),
     // RegeneratePassword,
 }
 
-#[derive(Debug, Default)]
+// #[derive(Debug, Default)]
 pub struct App {
-    password: String,
+    settings: Settings,
 }
 
-impl App {
-    fn get_estimate(&self) -> Option<u8> {
-        zxcvbn(&self.password, &[])
-            .ok()
-            .map(|estimate| estimate.score())
-    }
-
-    fn redout_top_row_text(&self) -> String {
-        if self.password.is_empty() {
-            return "Provide a password".to_string();
-        }
-        let estimate_text = match self.get_estimate().unwrap_or(0) {
-            0 => "That's a password?",
-            1 => "You can do a lot better.",
-            2 => "Meh",
-            3 => "Good",
-            _ => "Great!",
-        };
-        format!("Complexity = {estimate_text}")
-    }
-}
+impl App {}
 
 impl Component for App {
     type Message = Msg;
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self::default()
+        Self {
+            settings: Settings::load(),
+        }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
+        // unimplemented!();
         match msg {
-            // Msg::SetPassword(next_password) => self.password = next_password,
-            // Msg::RegeneratePassword => self.password = generate_password(),
+            Msg::ChangeSettings(settings) => {
+                self.settings = settings;
+                self.settings.store();
+            } // Msg::SetPassword(next_password) => self.password = next_password,
+              // Msg::RegeneratePassword => self.password = generate_password(),
         };
         true
     }
@@ -57,31 +42,24 @@ impl Component for App {
     fn view(&self, ctx: &Context<Self>) -> Html {
         // let on_change = ctx.link().callback(Msg::SetPassword);
         // let onclick = ctx.link().callback(|_| Msg::RegeneratePassword);
+
+        let Self { ref settings, .. } = *self;
+
+        macro_rules! settings_callback {
+            ($link:expr, $settings:ident; $key:ident as $ty:ty) => {{
+                let settings = $settings.clone();
+                $link.callback(move |value| {
+                    let mut settings = settings.clone();
+                    settings.$key = value as $ty;
+                    Msg::ChangeSettings(settings)
+                })
+            }};
+            ($link:expr, $settings:ident; $key:ident) => {
+                settings_callback!($link, $settings; $key as u64)
+            }
+        }
+
         html! {
-            // <main>
-            //     <div class="entry">
-            //         <div>
-            //             {"Aqui va texto:"}
-            //             <div class="footnote">
-            //                 {"(Will show in clear text)"}
-            //             </div>
-            //         </div>
-            //         <div>
-            //             <TextInput {on_change} value={self.password.clone()} />
-            //         </div>
-            //     </div>
-            //     <div class="readout">
-            //         <div>
-            //             {self.redout_top_row_text()}
-            //         </div>
-            //         <button {onclick}>
-            //             {"Generate new password *"}
-            //         </button>
-            //         <div class="footnote">
-            //             {"* Note: generated passwords are not actually cryptographically secure"}
-            //         </div>
-            //     </div>
-            // </main>
             <body>
             <nav class="container-fluid">
                 <ul>
@@ -108,7 +86,8 @@ impl Component for App {
                 <div>
                     <hgroup class="title">
                     <h1>{"Stateless Password Manager"}</h1>
-                    <p>{"Remember only one master password to access your passwords at any time, on any device, without the need for
+                    <p>{"Remember only one master password to access your passwords at any time, on any device, without the need
+                        for
                         syncing."}</p>
                     </hgroup>
                     <form>
@@ -138,20 +117,10 @@ impl Component for App {
                         </label>
                         </nav>
                         <div class="grid" style="padding: 0rem;">
-                        <div>
-                            <label>
-                            {"Size: "}<output id="sizeOutput">{"16"}</output>
-                            <input type="range" id="sizeRange" value="16" min="1" max="100"
-                                oninput= "sizeOutput.value = sizeRange.value"/>
-                            </label>
-                        </div>
-                        <div>
-                            <label>
-                            {"Counter: "}<output id="counterOutput">{"1"}</output>
-                            <input type="range" id="counterRange" value="1" min="1" max="100"
-                                oninput="counterOutput.value = counterRange.value"/>
-                            </label>
-                        </div>
+                        <Slider label="Size" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
+                            value={settings.size} />
+                        <Slider label="Counter" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; counter)}
+                            value={settings.counter} />
                         </div>
 
                     </fieldset>
@@ -168,7 +137,7 @@ impl Component for App {
                 <a href="https://github.com/M1n-74316D65/RustlessPass" class="secondary">{"Source code"}</a></small>
             </footer>
 
-            <script src="ui/js/minimal-theme-switcher.js"></script>
+            <script src="minimal-theme-switcher.js"></script>
             </body>
         }
     }
