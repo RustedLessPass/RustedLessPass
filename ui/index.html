@@ -4,17 +4,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
   <title>RustlessPass</title>
   <meta name="description" content="A stateless Password Manager." />
 
-  <!-- Pico.css -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.orange.min.css" />
-  <!-- Custom styles for this example -->
   <link rel="stylesheet" href="custom.css" />
 </head>
 
 <body>
-  <!-- Nav -->
   <nav class="container-fluid">
     <ul>
       <li>
@@ -24,7 +22,7 @@
     <ul>
       <li>
         <details class="dropdown">
-          <summary>Theme</summary>
+          <summary role="button" class="secondary">Theme</summary>
           <ul dir="rtl">
             <li><a href="#" data-theme-switcher="auto">Auto</a></li>
             <li><a href="#" data-theme-switcher="light">Light</a></li>
@@ -34,9 +32,7 @@
       </li>
     </ul>
   </nav>
-  <!-- ./ Nav -->
 
-  <!-- Main -->
   <main class="container">
     <article>
       <div>
@@ -94,16 +90,14 @@
       </div>
     </article>
   </main>
-  <!-- ./ Main -->
 
-  <!-- Footer -->
   <footer class="container-fluid">
-    <small>Built with <a href="https://picocss.com" class="secondary">Pico</a> •
-      <a href="https://github.com/picocss/examples/tree/master/v1-sign-in/" class="secondary">Source code</a></small>
+    <small>Built with <a href="https://rust-lang.org" class="secondary">Rust</a>, <a
+        href="https://github.com/71/lesspass.rs" class="secondary">lesspass.rs</a>, <a href="https://yew.rs"
+        class="secondary">Yew</a>, and <a href="https://picocss.com" class="secondary">Pico</a> •
+      <a href="https://github.com/M1n-74316D65/RustlessPass" class="secondary">Source code</a></small>
   </footer>
-  <!-- ./ Footer -->
 
-  <!-- Minimal theme switcher -->
   <script src="js/minimal-theme-switcher.js"></script>
 </body>
 
