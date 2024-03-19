@@ -5,7 +5,7 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-yew = { path = "../yew/packages/yew", features = ["csr"] }
+yew = { git = "https://github.com/yewstack/yew/", features = ["csr"] }
 zxcvbn = "2.2.2"
 time = "0.3.30"
 js-sys = "0.3.64"

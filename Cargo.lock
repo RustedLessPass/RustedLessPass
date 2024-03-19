@@ -1730,6 +1730,7 @@ dependencies = [
 [[package]]
 name = "yew"
 version = "0.21.0"
+source = "git+https://github.com/yewstack/yew/#e9739fc9ce4944ba93c77a32072551ab771a2cda"
 dependencies = [
  "console_error_panic_hook",
  "futures",
@@ -1753,6 +1754,7 @@ dependencies = [
 [[package]]
 name = "yew-macro"
 version = "0.21.0"
+source = "git+https://github.com/yewstack/yew/#e9739fc9ce4944ba93c77a32072551ab771a2cda"
 dependencies = [
  "once_cell",
  "prettyplease",
