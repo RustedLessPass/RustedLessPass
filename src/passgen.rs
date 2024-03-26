@@ -1,6 +1,7 @@
 use lesspass::{self, CharacterSet};
+use log::info;
 
-fn generate_password(
+pub fn generate_password(
     domain: &str,
     login: &str,
     master_password: &str,
@@ -14,7 +15,10 @@ fn generate_password(
     let salt = lesspass::generate_salt(domain, login, counter);
     let entropy = lesspass::generate_entropy(master_password, &salt, lesspass::Algorithm::SHA256, 100000);
     let charset = generate_charset(lowercase, uppercase, digits, symbols);
-    lesspass::render_password(&entropy, charset, length)
+    let fina = lesspass::render_password(&entropy, charset, length) as String;
+    info!("Finaldwa {}", fina);
+
+    fina
 }
 
 fn generate_charset(
@@ -36,7 +40,7 @@ fn generate_charset(
     if !symbols {
         charset.remove(CharacterSet::Symbols);
     }
-    charset
+    return charset
 }
 
 // fn main() {

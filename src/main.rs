@@ -1,14 +1,15 @@
 #![recursion_limit = "256"]
 
-mod text_input;
-
 mod app;
+mod passgen;
+mod settings;
 mod slider;
 mod switch;
-mod settings;
+mod text_input;
 
 use app::App;
 
 fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     yew::Renderer::<App>::new().render();
 }
