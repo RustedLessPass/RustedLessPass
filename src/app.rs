@@ -1,7 +1,6 @@
 use yew::prelude::*;
 
 use crate::passgen::generate_password;
-use log::info;
 
 use crate::settings::Settings;
 use crate::slider::Slider;
@@ -51,11 +50,10 @@ impl Component for App {
             Msg::SetUsername(next_username) => self.username = next_username,
             Msg::SetPassword(next_password) => self.password = next_password,
             Msg::GeneratePassword => {
-                info!("Hello before {}", self.password.clone());
                 self.new_password = generate_password(
-                    self.website.clone().as_str(),
-                    self.username.clone().as_str(),
-                    self.password.clone().as_str(),
+                    self.website.as_str(),
+                    self.username.as_str(),
+                    self.password.as_str(),
                     if self.settings.lowercase == 0 {
                         false
                     } else {
@@ -78,8 +76,7 @@ impl Component for App {
                     },
                     self.settings.size as usize,
                     self.settings.counter as u32,
-                ) as String;
-                info!("Final {} 2", self.new_password.clone());
+                );
             }
         };
         true
