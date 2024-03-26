@@ -92,11 +92,11 @@ impl Component for App {
                         syncing."}</p>
                     </hgroup>
                     <form>
-                    <input type="text" name="website" placeholder="Website" aria-label="Website" autocomplete="website"
+                    <input type="text" name="website" placeholder="Website" aria-label="Website" autocomplete="off"
                         required=true />
-                    <input type="text" name="username" placeholder="Username" aria-label="Username" autocomplete="username"
+                    <input type="text" name="username" placeholder="Username" aria-label="Username"  autocomplete="email,username"
                         required=true />
-                    <input type="password" name="password" placeholder="Password" aria-label="Password"
+                    <input type="password" name="password" placeholder="Password" aria-label="password"
                         autocomplete="current-password" required=true />
                     <fieldset>
                         <nav>
