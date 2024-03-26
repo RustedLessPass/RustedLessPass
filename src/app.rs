@@ -144,8 +144,8 @@ impl Component for App {
                     <TextInput value={self.password.clone()} input_type={"password"} name={"Password"} autocomplete={"current-password"} on_change={on_password_change}/>
                     <fieldset>
                         <nav>
-                            <Switch label="Lower Case" onchange={settings_callback!(ctx.link(), settings; lowercase)} value={settings.lowercase.clone()} />
-                            <Switch label="Upper Case" onchange={settings_callback!(ctx.link(), settings; uppercase)} value={settings.uppercase.clone()} />
+                            <Switch label="LowerCase" onchange={settings_callback!(ctx.link(), settings; lowercase)} value={settings.lowercase.clone()} />
+                            <Switch label="UpperCase" onchange={settings_callback!(ctx.link(), settings; uppercase)} value={settings.uppercase.clone()} />
                             <Switch label="Numbers" onchange={settings_callback!(ctx.link(), settings; numbers)} value={settings.numbers.clone()} />
                             <Switch label="Symbols" onchange={settings_callback!(ctx.link(), settings; symbols)} value={settings.symbols.clone()} />
                         </nav>
@@ -159,7 +159,6 @@ impl Component for App {
                     </fieldset>
                     <button type="submit" class="contrast" {onclick}>{"Generate and copy"}</button>
                     <p>{"Your generated password is: "}{&self.new_password}</p>
-                    <p>{"Your generated password will be copied to your clipboard."}</p>
                     </form>
                 </div>
                 </article>
