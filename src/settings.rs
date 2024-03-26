@@ -5,6 +5,10 @@ use serde::{Deserialize, Serialize};
 pub struct Settings {
     pub size: u64,
     pub counter: u64,
+    pub lowercase: u64,
+    pub uppercase: u64,
+    pub numbers: u64,
+    pub symbols: u64,
 }
 impl Settings {
     const KEY: &'static str = "yew.boids.settings";
@@ -26,6 +30,10 @@ impl Default for Settings {
         Self {
             size: 16,
             counter: 1,
+            lowercase: 1,
+            uppercase: 1,
+            numbers: 1,
+            symbols: 1,
         }
     }
 }

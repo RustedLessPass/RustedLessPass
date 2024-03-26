@@ -2,6 +2,7 @@ use yew::prelude::*;
 
 use crate::settings::Settings;
 use crate::slider::Slider;
+use crate::switch::Switch;
 // use crate::text_input::TextInput;
 
 pub enum Msg {
@@ -99,22 +100,26 @@ impl Component for App {
                         autocomplete="current-password" required=true />
                     <fieldset>
                         <nav>
-                        <label for="a-z">
-                            <input type="checkbox" role="switch" id="a-z" name="a-z" checked=true />
-                            {"a-z"}
-                        </label>
-                        <label for="A-Z">
-                            <input type="checkbox" role="switch" id="A-Z" name="A-Z" checked=true />
-                            {"A-Z"}
-                        </label>
-                        <label for="0-9">
-                            <input type="checkbox" role="switch" id="0-9" name="0-9" checked=true />
-                            {"0-9"}
-                        </label>
-                        <label for="%!@">
-                            <input type="checkbox" role="switch" id="%!@" name="%!@" checked=true />
-                            {"%!@"}
-                        </label>
+                            <Switch label="Lower Case" onchange={settings_callback!(ctx.link(), settings; lowercase)} value={settings.lowercase} />
+                            <Switch label="Upper Case" onchange={settings_callback!(ctx.link(), settings; uppercase)} value={settings.uppercase} />
+                            <Switch label="Numbers" onchange={settings_callback!(ctx.link(), settings; numbers)} value={settings.numbers} />
+                            <Switch label="Symbols" onchange={settings_callback!(ctx.link(), settings; symbols)} value={settings.symbols} />
+                        // <label for="a-z">
+                        //     <input type="checkbox" role="switch" id="a-z" name="a-z" checked=true />
+                        //     {"a-z"}
+                        // </label>
+                        // <label for="A-Z">
+                        //     <input type="checkbox" role="switch" id="A-Z" name="A-Z" checked=true />
+                        //     {"A-Z"}
+                        // </label>
+                        // <label for="0-9">
+                        //     <input type="checkbox" role="switch" id="0-9" name="0-9" checked=true />
+                        //     {"0-9"}
+                        // </label>
+                        // <label for="%!@">
+                        //     <input type="checkbox" role="switch" id="%!@" name="%!@" checked=true />
+                        //     {"%!@"}
+                        // </label>
                         </nav>
                         <div class="grid" style="padding: 0rem;">
                         <Slider label="Size" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
