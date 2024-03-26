@@ -1,14 +1,12 @@
 use yew::prelude::*;
-// use lesspass::{self, CharacterSet};
 
 use crate::passgen::generate_password;
 use log::info;
 
-// use crate::password_input::PasswordInput;
-use crate::text_input::TextInput;
+use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
-use crate::settings::Settings;
+use crate::text_input::TextInput;
 
 pub enum Msg {
     ChangeSettings(Settings),
@@ -48,40 +46,39 @@ impl Component for App {
             Msg::ChangeSettings(settings) => {
                 self.settings = settings;
                 self.settings.store();
-            },
+            }
             Msg::SetWebsite(next_website) => self.website = next_website,
             Msg::SetUsername(next_username) => self.username = next_username,
             Msg::SetPassword(next_password) => self.password = next_password,
             Msg::GeneratePassword => {
-                // fn generate_charset(
-                //     lowercase: bool,
-                //     uppercase: bool,
-                //     digits: bool,
-                //     symbols: bool,
-                // ) -> CharacterSet {
-                //     let mut charset = CharacterSet::All;
-                //     if !lowercase {
-                //         charset.remove(CharacterSet::Lowercase);
-                //     }
-                //     if !uppercase {
-                //         charset.remove(CharacterSet::Uppercase);
-                //     }
-                //     if !digits {
-                //         charset.remove(CharacterSet::Numbers);
-                //     }
-                //     if !symbols {
-                //         charset.remove(CharacterSet::Symbols);
-                //     }
-                //     return charset
-                // }
-                // let salt = lesspass::generate_salt(self.website.as_str(), self.username.as_str(), self.settings.counter as u32);
-                // let entropy = lesspass::generate_entropy(self.password.as_str(), &salt, lesspass::Algorithm::SHA256, 100000);
-                // let charset = generate_charset(if self.settings.lowercase == 0 { false } else { true }, if self.settings.uppercase == 0 { false } else { true }, if self.settings.numbers == 0 { false } else { true }, if self.settings.symbols == 0 { false } else { true });
-                // self.website = self.website.clone();
-                // self.username = self.username.clone();
-                // self.password = lesspass::render_password(&entropy, charset, self.settings.size as usize) as String;
                 info!("Hello before {}", self.password.clone());
-                self.new_password = generate_password(self.website.clone().as_str(), self.username.clone().as_str(), self.password.clone().as_str(), if self.settings.lowercase == 0 { false } else { true }, if self.settings.uppercase == 0 { false } else { true }, if self.settings.numbers == 0 { false } else { true }, if self.settings.symbols == 0 { false } else { true }, self.settings.size as usize, self.settings.counter as u32) as String;
+                self.new_password = generate_password(
+                    self.website.clone().as_str(),
+                    self.username.clone().as_str(),
+                    self.password.clone().as_str(),
+                    if self.settings.lowercase == 0 {
+                        false
+                    } else {
+                        true
+                    },
+                    if self.settings.uppercase == 0 {
+                        false
+                    } else {
+                        true
+                    },
+                    if self.settings.numbers == 0 {
+                        false
+                    } else {
+                        true
+                    },
+                    if self.settings.symbols == 0 {
+                        false
+                    } else {
+                        true
+                    },
+                    self.settings.size as usize,
+                    self.settings.counter as u32,
+                ) as String;
                 info!("Final {} 2", self.new_password.clone());
             }
         };

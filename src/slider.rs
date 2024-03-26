@@ -46,7 +46,6 @@ impl Component for Slider {
             max,
         } = *ctx.props();
 
-
         let display_value = value;
 
         let id = format!("slider-{}", self.id);

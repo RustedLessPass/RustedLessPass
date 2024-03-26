@@ -22,7 +22,13 @@ fn get_value_from_input_event(e: InputEvent) -> String {
 /// Controlled Text Input Component
 #[function_component(TextInput)]
 pub fn text_input(props: &Props) -> Html {
-    let Props { value, input_type, name, autocomplete, on_change } = props.clone();
+    let Props {
+        value,
+        input_type,
+        name,
+        autocomplete,
+        on_change,
+    } = props.clone();
 
     let oninput = Callback::from(move |input_event: InputEvent| {
         on_change.emit(get_value_from_input_event(input_event));
