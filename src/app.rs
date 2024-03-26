@@ -86,8 +86,10 @@ impl Component for App {
         let on_website_change = ctx.link().callback(Msg::SetWebsite);
         let on_username_change = ctx.link().callback(Msg::SetUsername);
         let on_password_change = ctx.link().callback(Msg::SetPassword);
-        let onclick = ctx.link().callback(|_| Msg::GeneratePassword);
-
+        let onsubmit = ctx.link().callback(|e: SubmitEvent| {
+            e.prevent_default();
+            Msg::GeneratePassword
+        });
         let Self { ref settings, .. } = *self;
 
         macro_rules! settings_callback {
@@ -135,7 +137,7 @@ impl Component for App {
                         for
                         syncing."}</p>
                     </hgroup>
-                    <form>
+                    <form onsubmit={onsubmit}>
                     <TextInput value={self.website.clone()} input_type={"text"} name={"Website"} autocomplete={"off"} on_change={on_website_change}/>
                     <TextInput value={self.username.clone()} input_type={"text"} name={"Username"} autocomplete={"email,username"} on_change={on_username_change}/>
                     <TextInput value={self.password.clone()} input_type={"password"} name={"Password"} autocomplete={"current-password"} on_change={on_password_change}/>
@@ -154,7 +156,7 @@ impl Component for App {
                         </div>
 
                     </fieldset>
-                    <button type="submit" class="contrast" {onclick}>{"Generate and copy"}</button>
+                    <button type="submit" class="contrast">{"Generate and copy"}</button>
                     <p>{"Your generated password is: "}{&self.new_password}</p>
                     </form>
                 </div>
