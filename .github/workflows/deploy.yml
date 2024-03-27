@@ -1,0 +1,67 @@
+# This GitHub actions was inspired from
+# https://www.reddit.com/r/rust/comments/10eiysf/comment/j4rmeum/?utm_source=share&utm_medium=web2x&context=3
+
+name: CD - Deploy WASM to GitHub Pages
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/git
+            ~/.cargo/registry
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Trunk
+        uses: jetli/trunk-action@v0.4.0
+        with:
+          # Optional version of trunk to install(eg. 'v0.16.0', 'latest')
+          version: "latest"
+      - name: Add wasm target
+        run: |
+          rustup target add wasm32-unknown-unknown
+
+      - name: Build the Rust WASM app and all of its assets
+        run: trunk build --public-url ${{ github.event.repository.name }} --release
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
