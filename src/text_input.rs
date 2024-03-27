@@ -5,6 +5,9 @@ use yew::prelude::*;
 #[derive(Clone, PartialEq, Properties)]
 pub struct Props {
     pub value: String,
+    pub input_type: String,
+    pub name: String,
+    pub autocomplete: String,
     pub on_change: Callback<String>,
 }
 
@@ -19,13 +22,22 @@ fn get_value_from_input_event(e: InputEvent) -> String {
 /// Controlled Text Input Component
 #[function_component(TextInput)]
 pub fn text_input(props: &Props) -> Html {
-    let Props { value, on_change } = props.clone();
+    let Props {
+        value,
+        input_type,
+        name,
+        autocomplete,
+        on_change,
+    } = props.clone();
 
     let oninput = Callback::from(move |input_event: InputEvent| {
         on_change.emit(get_value_from_input_event(input_event));
     });
 
     html! {
-        <input type="text" {value} {oninput} />
+        <input type={input_type} name={name.clone()} placeholder={name.clone()} aria-label={name}  autocomplete={autocomplete}
+        required=true {value} {oninput}/>
+        // <input type="password" name="password" placeholder="Password" aria-label="password"
+        //                 autocomplete="current-password" required=true {value} {oninput}/>
     }
 }

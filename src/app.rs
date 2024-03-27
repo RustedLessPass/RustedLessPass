@@ -1,48 +1,113 @@
+use clipboard::ClipboardContext;
+use clipboard::ClipboardProvider;
 use yew::prelude::*;
 
+use crate::passgen::generate_password;
 use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
-// use crate::text_input::TextInput;
+use crate::text_input::TextInput;
+
+fn copy_to_clipboard(text: &str) {
+    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+    ctx.set_contents(text.to_owned()).unwrap();
+}
 
 pub enum Msg {
     ChangeSettings(Settings),
-    // SetPassword(String),
-    // RegeneratePassword,
+    SetWebsite(String),
+    SetUsername(String),
+    SetPassword(String),
+    GeneratePassword,
+    ShowPassword,
 }
 
 // #[derive(Debug, Default)]
 pub struct App {
     settings: Settings,
+    website: String,
+    username: String,
+    password: String,
+    new_password: String,
+    show: bool,
 }
 
-impl App {}
+impl Default for App {
+    fn default() -> Self {
+        Self {
+            settings: Settings::load(),
+            website: String::new(),
+            username: String::new(),
+            password: String::new(),
+            new_password: "Generate and copy".to_string(),
+            show: false,
+        }
+    }
+}
 
 impl Component for App {
     type Message = Msg;
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            settings: Settings::load(),
-        }
+        Self::default()
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        // unimplemented!();
         match msg {
             Msg::ChangeSettings(settings) => {
                 self.settings = settings;
                 self.settings.store();
-            } // Msg::SetPassword(next_password) => self.password = next_password,
-              // Msg::RegeneratePassword => self.password = generate_password(),
+                self.new_password = "Generate and copy".to_string();
+                self.show = false;
+            }
+            Msg::SetWebsite(next_website) => {
+                self.website = next_website;
+                self.new_password = "Generate and copy".to_string();
+                self.show = false;
+            }
+            Msg::SetUsername(next_username) => {
+                self.username = next_username;
+                self.new_password = "Generate and copy".to_string();
+                self.show = false;
+            }
+            Msg::SetPassword(next_password) => {
+                self.password = next_password;
+                self.new_password = "Generate and copy".to_string();
+                self.show = false;
+            }
+            Msg::GeneratePassword => {
+                self.new_password = generate_password(
+                    &self.website,
+                    &self.username,
+                    &self.password,
+                    self.settings.lowercase != 0,
+                    self.settings.uppercase != 0,
+                    self.settings.numbers != 0,
+                    self.settings.symbols != 0,
+                    self.settings.size as usize,
+                    self.settings.counter as u32,
+                );
+                copy_to_clipboard(&self.new_password);
+            }
+            Msg::ShowPassword => {
+                if self.new_password != "Generate and copy" && !self.show {
+                    self.show = true;
+                }
+            }
         };
         true
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        // let on_change = ctx.link().callback(Msg::SetPassword);
-        // let onclick = ctx.link().callback(|_| Msg::RegeneratePassword);
+        let on_website_change = ctx.link().callback(Msg::SetWebsite);
+        let on_username_change = ctx.link().callback(Msg::SetUsername);
+        let on_password_change = ctx.link().callback(Msg::SetPassword);
+        let onclick = ctx.link().callback(|_| Msg::ShowPassword);
+        let onsubmit = ctx.link().callback(|e: SubmitEvent| {
+            e.prevent_default();
+            Msg::GeneratePassword
+        });
 
         let Self { ref settings, .. } = *self;
 
@@ -91,45 +156,34 @@ impl Component for App {
                         for
                         syncing."}</p>
                     </hgroup>
-                    <form>
-                    <input type="text" name="website" placeholder="Website" aria-label="Website" autocomplete="off"
-                        required=true />
-                    <input type="text" name="username" placeholder="Username" aria-label="Username"  autocomplete="email,username"
-                        required=true />
-                    <input type="password" name="password" placeholder="Password" aria-label="password"
-                        autocomplete="current-password" required=true />
+                    <form onsubmit={onsubmit}>
+                    <TextInput value={self.website.clone()} input_type={"text"} name={"Website"} autocomplete={"off"}
+                        on_change={on_website_change} />
+                    <TextInput value={self.username.clone()} input_type={"text"} name={"Username"} autocomplete={"email,username"}
+                        on_change={on_username_change} />
+                    <TextInput value={self.password.clone()} input_type={"password"} name={"Password"}
+                        autocomplete={"current-password"} on_change={on_password_change} />
                     <fieldset>
                         <nav>
-                            <Switch label="Lower Case" onchange={settings_callback!(ctx.link(), settings; lowercase)} value={settings.lowercase} />
-                            <Switch label="Upper Case" onchange={settings_callback!(ctx.link(), settings; uppercase)} value={settings.uppercase} />
-                            <Switch label="Numbers" onchange={settings_callback!(ctx.link(), settings; numbers)} value={settings.numbers} />
-                            <Switch label="Symbols" onchange={settings_callback!(ctx.link(), settings; symbols)} value={settings.symbols} />
-                        // <label for="a-z">
-                        //     <input type="checkbox" role="switch" id="a-z" name="a-z" checked=true />
-                        //     {"a-z"}
-                        // </label>
-                        // <label for="A-Z">
-                        //     <input type="checkbox" role="switch" id="A-Z" name="A-Z" checked=true />
-                        //     {"A-Z"}
-                        // </label>
-                        // <label for="0-9">
-                        //     <input type="checkbox" role="switch" id="0-9" name="0-9" checked=true />
-                        //     {"0-9"}
-                        // </label>
-                        // <label for="%!@">
-                        //     <input type="checkbox" role="switch" id="%!@" name="%!@" checked=true />
-                        //     {"%!@"}
-                        // </label>
+                        <Switch label="LowerCase" onchange={settings_callback!(ctx.link(), settings; lowercase)}
+                            value={settings.lowercase.clone()} />
+                        <Switch label="UpperCase" onchange={settings_callback!(ctx.link(), settings; uppercase)}
+                            value={settings.uppercase.clone()} />
+                        <Switch label="Numbers" onchange={settings_callback!(ctx.link(), settings; numbers)}
+                            value={settings.numbers.clone()} />
+                        <Switch label="Symbols" onchange={settings_callback!(ctx.link(), settings; symbols)}
+                            value={settings.symbols.clone()} />
                         </nav>
                         <div class="grid" style="padding: 0rem;">
-                        <Slider label="Size" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
-                            value={settings.size} />
+                        <Slider label="Size" max=35 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
+                            value={settings.size.clone()} />
                         <Slider label="Counter" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; counter)}
-                            value={settings.counter} />
+                            value={settings.counter.clone()} />
                         </div>
 
                     </fieldset>
-                    <button type="submit" class="contrast">{"Generate and copy"}</button>
+                    <button type="submit" class="contrast" {onclick}>{if self.new_password != "Generate and copy" && !self.show
+                        {"**************"} else {self.new_password.as_str()}}</button>
                     </form>
                 </div>
                 </article>
