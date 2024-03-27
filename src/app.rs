@@ -100,6 +100,8 @@ impl Component for App {
             Msg::ShowPassword => {
                 if self.new_password != "Generate and copy" && !self.show {
                     self.show = true;
+                }else if self.show{
+                    self.show = false;
                 }
             }
         };
