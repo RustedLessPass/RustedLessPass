@@ -40,7 +40,9 @@ jobs:
         run: |
           rustup target add wasm32-unknown-unknown
       - name: lsdwa
-        run: ls /home/runner/work/RustlessPass/RustlessPass/lib/lesspass.rs
+        run: |
+          ls /home/runner/work/RustlessPass/RustlessPass/lib/lesspass.rs
+          git submodule update --init --recursive
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --public-url ${{ github.event.repository.name }} --release
 
