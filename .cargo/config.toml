@@ -1,0 +1,4 @@
+[target.wasm32-unknown-unknown]
+runner = "wasm-server-runner"
+[build]
+rustflags = ["--cfg=web_sys_unstable_apis"]

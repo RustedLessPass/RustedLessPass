@@ -3,18 +3,23 @@ name = "rustlesspass"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-yew = "0.21"
 yew-hooks = "0.3"
-web-sys = { version = "0.3", features = ["Event", "EventTarget", "InputEvent"] }
-wasm-bindgen = "0.2"
 wasm-logger = "0.2"
 log = "0.4"
-serde = { version = "1.0.197", features = ["derive"] }
-gloo = "0.11"
 lesspass = { path = "./lib/lesspass.rs" }
-clipboard = "0.5"
+gloo = "0.11"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4.41"
 
-[yew]
+[dependencies.yew]
+version = "0.21"
 features = ["csr"]
+
+[dependencies.web-sys]
+version = "0.3"
+features = ["Clipboard", "Window", "Navigator", "Permissions"]
+
+[dependencies.serde]
+version = "1.0.197"
+features = ["derive"]

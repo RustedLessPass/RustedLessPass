@@ -1,5 +1,4 @@
-use clipboard::ClipboardContext;
-use clipboard::ClipboardProvider;
+use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
 use crate::passgen::generate_password;
@@ -7,11 +6,6 @@ use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
 use crate::text_input::TextInput;
-
-fn copy_to_clipboard(text: &str) {
-    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
-    ctx.set_contents(text.to_owned()).unwrap();
-}
 
 pub enum Msg {
     ChangeSettings(Settings),
@@ -88,7 +82,20 @@ impl Component for App {
                     self.settings.size as usize,
                     self.settings.counter as u32,
                 );
-                copy_to_clipboard(&self.new_password);
+                let cloned_self = self.new_password.clone();
+                let _task = spawn_local(async move {
+                    let window = web_sys::window().expect("window"); // { obj: val };
+                    let nav = window.navigator().clipboard();
+                    match nav {
+                        Some(a) => {
+                            let p = a.write_text(&cloned_self);
+                            let _result = wasm_bindgen_futures::JsFuture::from(p)
+                                .await
+                                .expect("clipboard populated");
+                        }
+                        None => {}
+                    };
+                });
             }
             Msg::ShowPassword => {
                 if self.new_password != "Generate and copy" && !self.show {
