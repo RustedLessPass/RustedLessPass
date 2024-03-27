@@ -39,9 +39,8 @@ jobs:
       - name: Add wasm target
         run: |
           rustup target add wasm32-unknown-unknown
-
       - name: Build the Rust WASM app and all of its assets
-        run: trunk build --public-url ${{ github.event.repository.name }} --release
+        run: trunk build --release
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
