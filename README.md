@@ -40,7 +40,7 @@ You can then use the generated password when signing up or logging into websites
 
 ## Contributing
 
-Contributions to uestlessPass are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+Contributions to RustlessPass are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
 ## Special Thanks
 
