@@ -1,6 +1,6 @@
 # RestlessPass
 
-RestlessPass is a password manager built with Rust, utilizing the lesspass.rs library for password generation and the Yew framework for building the web interface. The application also incorporates Pico for running the development server.
+RestlessPass is a password manager built with Rust, utilizing the lesspass.rs library for password generation and the Yew framework for building the web interface.
 
 ## Installation
 
