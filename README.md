@@ -44,7 +44,7 @@ Contributions to uestlessPass are welcome! If you find any issues or have sugges
 
 ## Special Thanks
 
-We extend our sincere gratitude to:
+Sincere gratitude to:
 
 - [Pico CSS](https://picocss.com)
 - [lesspass](https://github.com/lesspass/lesspass)
