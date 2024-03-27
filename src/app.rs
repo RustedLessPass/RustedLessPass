@@ -1,3 +1,5 @@
+use clipboard::ClipboardContext;
+use clipboard::ClipboardProvider;
 use yew::prelude::*;
 
 use crate::passgen::generate_password;
@@ -5,6 +7,11 @@ use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
 use crate::text_input::TextInput;
+
+fn copy_to_clipboard(text: &str) {
+    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+    ctx.set_contents(text.to_owned()).unwrap();
+}
 
 pub enum Msg {
     ChangeSettings(Settings),
@@ -81,6 +88,7 @@ impl Component for App {
                     self.settings.size as usize,
                     self.settings.counter as u32,
                 );
+                copy_to_clipboard(&self.new_password);
             }
             Msg::ShowPassword => {
                 if self.new_password != "Generate and copy" && !self.show {

@@ -14,6 +14,7 @@ log = "0.4"
 serde = { version = "1.0.197", features = ["derive"] }
 gloo = "0.11"
 lesspass = { path = "./lib/lesspass.rs" }
+clipboard = "0.5"
 
 [yew]
 features = ["csr"]
