@@ -9,7 +9,6 @@ To run RustlessPass locally, follow these steps:
 1. Clone the repository:
 ```bash
 git clone https://github.com/M1n-74316D65/RustlessPass.git
-git submodule update --init --recursive
 ```
 2. Navigate to the project directory:
 ```bash
@@ -17,6 +16,7 @@ cd RustlessPass
 ```
 3. Install dependencies:
 ```bash
+git submodule update --init --recursive
 rustup target add wasm32-unknown-unknown
 cargo install --locked trunk
 ```
