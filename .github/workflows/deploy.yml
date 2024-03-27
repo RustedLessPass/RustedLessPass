@@ -43,7 +43,7 @@ jobs:
         run: |
           git submodule update --init --recursive
       - name: Build the Rust WASM app and all of its assets
-        run: trunk build --public-url RustlessPass/RustlessPass --release
+        run: trunk build --public-url ${{ github.event.repository.name }} --release
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
