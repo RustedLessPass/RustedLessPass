@@ -1,7 +1,6 @@
 use yew::prelude::*;
 
 use crate::passgen::generate_password;
-
 use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
@@ -13,6 +12,7 @@ pub enum Msg {
     SetUsername(String),
     SetPassword(String),
     GeneratePassword,
+    ShowPassword,
 }
 
 #[derive(Debug, Default)]
@@ -22,6 +22,7 @@ pub struct App {
     username: String,
     password: String,
     new_password: String,
+    show: bool,
 }
 
 impl App {}
@@ -36,47 +37,90 @@ impl Component for App {
             website: String::new(),
             username: String::new(),
             password: String::new(),
-            new_password: String::new(),
+            new_password: "Generate and copy".to_string(),
+            show: false,
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ChangeSettings(settings) => {
-                self.settings = settings;
-                self.settings.store();
+                if !self.show {
+                    self.settings = settings;
+                    self.settings.store();
+                    self.new_password = "Generate and copy".to_string();
+                } else {
+                    self.show = false;
+                    self.settings = settings;
+                    self.settings.store();
+                    self.new_password = "Generate and copy".to_string();
+                }
             }
-            Msg::SetWebsite(next_website) => self.website = next_website,
-            Msg::SetUsername(next_username) => self.username = next_username,
-            Msg::SetPassword(next_password) => self.password = next_password,
+            Msg::SetWebsite(next_website) => {
+                if !self.show {
+                    self.website = next_website;
+                    self.new_password = "Generate and copy".to_string();
+                } else {
+                    self.show = false;
+                    self.website = next_website;
+                    self.new_password = "Generate and copy".to_string();
+                }
+            }
+            Msg::SetUsername(next_username) => {
+                if !self.show {
+                    self.username = next_username;
+                } else {
+                    self.show = false;
+                    self.username = next_username;
+                    self.new_password = "Generate and copy".to_string();
+                }
+            }
+            Msg::SetPassword(next_password) => {
+                if !self.show {
+                    self.password = next_password;
+                } else {
+                    self.show = false;
+                    self.password = next_password;
+                    self.new_password = "Generate and copy".to_string();
+                }
+            }
             Msg::GeneratePassword => {
-                self.new_password = generate_password(
-                    self.website.as_str(),
-                    self.username.as_str(),
-                    self.password.as_str(),
-                    if self.settings.lowercase == 0 {
-                        false
-                    } else {
-                        true
-                    },
-                    if self.settings.uppercase == 0 {
-                        false
-                    } else {
-                        true
-                    },
-                    if self.settings.numbers == 0 {
-                        false
-                    } else {
-                        true
-                    },
-                    if self.settings.symbols == 0 {
-                        false
-                    } else {
-                        true
-                    },
-                    self.settings.size as usize,
-                    self.settings.counter as u32,
-                );
+                if !self.show {
+                    self.new_password = generate_password(
+                        self.website.as_str(),
+                        self.username.as_str(),
+                        self.password.as_str(),
+                        if self.settings.lowercase == 0 {
+                            false
+                        } else {
+                            true
+                        },
+                        if self.settings.uppercase == 0 {
+                            false
+                        } else {
+                            true
+                        },
+                        if self.settings.numbers == 0 {
+                            false
+                        } else {
+                            true
+                        },
+                        if self.settings.symbols == 0 {
+                            false
+                        } else {
+                            true
+                        },
+                        self.settings.size as usize,
+                        self.settings.counter as u32,
+                    );
+                } else {
+                    self.show = true;
+                }
+            }
+            Msg::ShowPassword => {
+                if self.new_password != "Generate and copy" && !self.show {
+                    self.show = true;
+                }
             }
         };
         true
@@ -86,6 +130,7 @@ impl Component for App {
         let on_website_change = ctx.link().callback(Msg::SetWebsite);
         let on_username_change = ctx.link().callback(Msg::SetUsername);
         let on_password_change = ctx.link().callback(Msg::SetPassword);
+        let onclick = ctx.link().callback(|_| Msg::ShowPassword);
         let onsubmit = ctx.link().callback(|e: SubmitEvent| {
             e.prevent_default();
             Msg::GeneratePassword
@@ -156,8 +201,7 @@ impl Component for App {
                         </div>
 
                     </fieldset>
-                    <button type="submit" class="contrast">{"Generate and copy"}</button>
-                    <p>{"Your generated password is: "}{&self.new_password}</p>
+                    <button type="submit" class="contrast" {onclick}>{if self.new_password != "Generate and copy" && !self.show {"**************"} else {self.new_password.as_str()}}</button>
                     </form>
                 </div>
                 </article>
