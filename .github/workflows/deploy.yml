@@ -39,6 +39,8 @@ jobs:
       - name: Add wasm target
         run: |
           rustup target add wasm32-unknown-unknown
+      - name: lsdwa
+        run: ls /home/runner/work/RustlessPass/RustlessPass/lib
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --release
 
