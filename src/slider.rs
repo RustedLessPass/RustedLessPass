@@ -57,7 +57,7 @@ impl Component for Slider {
 
         html! {
             <div class="slider">
-                <label for={id.clone()} class="slider__label">{ label }</label>
+                <label for={id.clone()} class="slider__label">{ label }{": "}{ display_value }</label>
                 <input type="range"
                     value={value.to_string()}
                     {id}
@@ -65,7 +65,6 @@ impl Component for Slider {
                     min={min.to_string()} max={max.to_string()} step={"1"}
                     {oninput}
                 />
-                <span class="slider__value">{ display_value }</span>
             </div>
         }
     }
