@@ -172,13 +172,13 @@ impl Component for App {
                         autocomplete={"current-password"} on_change={on_password_change} />
                     <fieldset>
                         <nav>
-                        <Switch label="LowerCase" onchange={settings_callback!(ctx.link(), settings; lowercase)}
+                        <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
                             value={settings.lowercase.clone()} />
-                        <Switch label="UpperCase" onchange={settings_callback!(ctx.link(), settings; uppercase)}
+                        <Switch label="A-Z" onchange={settings_callback!(ctx.link(), settings; uppercase)}
                             value={settings.uppercase.clone()} />
-                        <Switch label="Numbers" onchange={settings_callback!(ctx.link(), settings; numbers)}
+                        <Switch label="0-9" onchange={settings_callback!(ctx.link(), settings; numbers)}
                             value={settings.numbers.clone()} />
-                        <Switch label="Symbols" onchange={settings_callback!(ctx.link(), settings; symbols)}
+                        <Switch label="%!@" onchange={settings_callback!(ctx.link(), settings; symbols)}
                             value={settings.symbols.clone()} />
                         </nav>
                         <div class="grid" style="padding: 0rem;">
