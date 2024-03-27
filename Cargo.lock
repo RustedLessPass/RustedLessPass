@@ -1075,7 +1075,7 @@ checksum = "d626bb9dae77e28219937af045c257c28bfd3f69333c512553507f5f9798cb76"
 
 [[package]]
 name = "rustlesspass"
-version = "0.1.0"
+version = "0.9.0"
 dependencies = [
  "gloo 0.11.0",
  "lesspass",
