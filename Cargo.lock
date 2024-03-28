@@ -1081,6 +1081,7 @@ dependencies = [
  "lesspass",
  "log",
  "serde",
+ "sha2",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "wasm-logger",

@@ -4,6 +4,7 @@
         "./Cargo.toml"
     ],
     "conventionalCommits.scopes": [
-        "pages"
+        "pages",
+        "fingerprint"
     ]
 }
