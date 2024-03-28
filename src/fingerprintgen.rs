@@ -1,3 +1,5 @@
+use lesspass::get_fingerprint;
+
 const ICONS: [&str; 46] = [
     "fa-hashtag",
     "fa-heart",
@@ -44,47 +46,31 @@ const ICONS: [&str; 46] = [
     "fa-flask",
     "fa-futbol-o",
     "fa-gamepad",
-    "fa-graduation-cap"
+    "fa-graduation-cap",
 ];
 
 fn get_icon(sha256: &str) -> &'static str {
-    // convert sha256 to number base 16
-    // TODO: check if u32 is base 16
-    let mut sum = 0;
-    for c in sha256.chars() {
-        sum += c as u32;
-    }
+    let sum = match u32::from_str_radix(sha256, 16) {
+        Ok(parsed_value) => parsed_value,
+        Err(_) => return "default_icon",
+    };
     let index = sum % ICONS.len() as u32;
-    return ICONS[index as usize];
+    ICONS[index as usize]
 }
 
-fn calculate_sha256(input: &str) -> String {
-    use sha2::{Digest, Sha256};
-    let mut hasher = Sha256::new();
-    hasher.update(input);
-    let result = hasher.finalize();
-    let result_str = format!("{:x}", result);
-    return result_str;
-}
-
-pub fn fingerprint_calculate(input: &str, size: usize, separator: &str) -> Vec<String> {
-    // let input = "random_text";
-    let hashed_input = calculate_sha256(&input);
-
-    // split the sha256 in 3 segments
-    let mut hashed_input_slice = &hashed_input[..]; // create a slice of the string
-    let segment_size = hashed_input_slice.len() / size; // determine the size of each segment
-
+pub fn fingerprint_calculate(input: &str) -> Vec<String> {
+    let hashed_input: String = get_fingerprint(input)
+        .iter()
+        .map(|b| format!("{:02x}", b))
+        .collect();
     let mut hashed_input_icons: Vec<String> = Vec::new();
-    for _i in 0..size {
-        let (segment, remaining) = hashed_input_slice.split_at(segment_size);
-
-        let hashed_segment = calculate_sha256(segment);
-        let hashed_segment_icon = get_icon(&hashed_segment);
+    let mut x = 0;
+    let mut y = 6;
+    for _i in 0..3 {
+        let hashed_segment_icon = get_icon(&hashed_input[x..y]);
         hashed_input_icons.push(hashed_segment_icon.to_string());
-
-        hashed_input_slice = remaining;
+        x += 6;
+        y += 6;
     }
-
-    return hashed_input_icons;
+    hashed_input_icons
 }

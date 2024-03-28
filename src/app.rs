@@ -36,7 +36,7 @@ impl Default for App {
             username: String::new(),
             password: String::new(),
             new_password: "Generate and copy".to_string(),
-            fingerprint: fingerprint_calculate("", 3),
+            fingerprint: fingerprint_calculate(""),
             show: 0,
             show_input_password: false,
         }
@@ -69,7 +69,7 @@ impl Component for App {
             Msg::SetPassword(next_password) => {
                 self.password = next_password;
                 // TODO: fix comp calculate fingerprint
-                self.fingerprint = fingerprint_calculate(self.password.clone().as_str(), 3);
+                self.fingerprint = fingerprint_calculate(self.password.clone().as_str());
                 self.show = 0;
             }
             Msg::GeneratePassword => {
