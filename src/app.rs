@@ -1,4 +1,3 @@
-use gloo::console::info;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
@@ -74,39 +73,38 @@ impl Component for App {
                 self.show = 0;
             }
             Msg::GeneratePassword => {
-                if self.show == 0 {
-                    self.new_password = generate_password(
-                        &self.website,
-                        &self.username,
-                        &self.password,
-                        self.settings.lowercase != 0,
-                        self.settings.uppercase != 0,
-                        self.settings.numbers != 0,
-                        self.settings.symbols != 0,
-                        self.settings.size as usize,
-                        self.settings.counter as u32,
-                    );
-                    let cloned_self = self.new_password.clone();
-                    let _task = spawn_local(async move {
-                        let window = web_sys::window().expect("window"); // { obj: val };
-                        let nav = window.navigator().clipboard();
-                        match nav {
-                            Some(a) => {
-                                let p = a.write_text(&cloned_self);
-                                let _result = wasm_bindgen_futures::JsFuture::from(p)
-                                    .await
-                                    .expect("clipboard populated");
-                            }
-                            None => {}
-                        };
-                    });
-                    self.show = 1;
-                    info!("Hello {}", self.new_password.clone());
-                } else if self.show < 2 {
-                    self.show += 1;
-                } else {
-                    self.show = 1;
-                }
+                self.show = match self.show {
+                    0 => {
+                        self.new_password = generate_password(
+                            &self.website,
+                            &self.username,
+                            &self.password,
+                            self.settings.lowercase != 0,
+                            self.settings.uppercase != 0,
+                            self.settings.numbers != 0,
+                            self.settings.symbols != 0,
+                            self.settings.size as usize,
+                            self.settings.counter as u32,
+                        );
+                        let cloned_self = self.new_password.clone();
+                        let _task = spawn_local(async move {
+                            let window = web_sys::window().expect("window"); // { obj: val };
+                            let nav = window.navigator().clipboard();
+                            match nav {
+                                Some(a) => {
+                                    let p = a.write_text(&cloned_self);
+                                    let _result = wasm_bindgen_futures::JsFuture::from(p)
+                                        .await
+                                        .expect("clipboard populated");
+                                }
+                                None => {}
+                            };
+                        });
+                        1
+                    }
+                    1 => 2,
+                    _ => 1,
+                };
             }
 
             Msg::ShowInputPassword => {
