@@ -15,7 +15,7 @@ pub fn generate_password(
     let entropy =
         lesspass::generate_entropy(master_password, &salt, lesspass::Algorithm::SHA256, 100000);
     let charset = generate_charset(lowercase, uppercase, digits, symbols);
-    return lesspass::render_password(&entropy, charset, length) as String;
+    lesspass::render_password(&entropy, charset, length)
 }
 
 fn generate_charset(lowercase: bool, uppercase: bool, digits: bool, symbols: bool) -> CharacterSet {
@@ -32,5 +32,5 @@ fn generate_charset(lowercase: bool, uppercase: bool, digits: bool, symbols: boo
     if !symbols {
         charset.remove(CharacterSet::Symbols);
     }
-    return charset;
+    charset
 }
