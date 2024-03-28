@@ -2,6 +2,7 @@
 
 mod app;
 mod passgen;
+mod fingerprintgen;
 mod settings;
 mod slider;
 mod switch;

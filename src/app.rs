@@ -1,6 +1,7 @@
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
+use crate::fingerprintgen::fingerprint_calculate;
 use crate::passgen::generate_password;
 use crate::settings::Settings;
 use crate::slider::Slider;
@@ -14,16 +15,18 @@ pub enum Msg {
     SetPassword(String),
     GeneratePassword,
     ShowPassword,
+    ShowInputPassword,
 }
 
-// #[derive(Debug, Default)]
 pub struct App {
     settings: Settings,
     website: String,
     username: String,
     password: String,
     new_password: String,
-    show: bool,
+    fingerprint: Vec<String>,
+    show: u8,
+    show_input_password: bool,
 }
 
 impl Default for App {
@@ -34,7 +37,9 @@ impl Default for App {
             username: String::new(),
             password: String::new(),
             new_password: "Generate and copy".to_string(),
-            show: false,
+            fingerprint: fingerprint_calculate("", 3, " "),
+            show: 0,
+            show_input_password: false,
         }
     }
 }
@@ -52,23 +57,21 @@ impl Component for App {
             Msg::ChangeSettings(settings) => {
                 self.settings = settings;
                 self.settings.store();
-                self.new_password = "Generate and copy".to_string();
-                self.show = false;
+                self.show = 0;
             }
             Msg::SetWebsite(next_website) => {
                 self.website = next_website;
-                self.new_password = "Generate and copy".to_string();
-                self.show = false;
+                self.show = 0;
             }
             Msg::SetUsername(next_username) => {
                 self.username = next_username;
-                self.new_password = "Generate and copy".to_string();
-                self.show = false;
+                self.show = 0;
             }
             Msg::SetPassword(next_password) => {
                 self.password = next_password;
-                self.new_password = "Generate and copy".to_string();
-                self.show = false;
+                // TODO: fix comp calculate fingerprint
+                self.fingerprint = fingerprint_calculate(self.password.clone().as_str(), 3, " ");
+                self.show = 0;
             }
             Msg::GeneratePassword => {
                 self.new_password = generate_password(
@@ -98,11 +101,15 @@ impl Component for App {
                 });
             }
             Msg::ShowPassword => {
-                if self.new_password != "Generate and copy" && !self.show {
-                    self.show = true;
-                }else if self.show{
-                    self.show = false;
+                if self.show < 2 {
+                    self.show += 1;
+                } else {
+                    self.show = 1;
                 }
+            }
+
+            Msg::ShowInputPassword => {
+                self.show_input_password = !self.show_input_password;
             }
         };
         true
@@ -112,8 +119,9 @@ impl Component for App {
         let on_website_change = ctx.link().callback(Msg::SetWebsite);
         let on_username_change = ctx.link().callback(Msg::SetUsername);
         let on_password_change = ctx.link().callback(Msg::SetPassword);
-        let onclick = ctx.link().callback(|_| Msg::ShowPassword);
-        let onsubmit = ctx.link().callback(|e: SubmitEvent| {
+        let on_click = ctx.link().callback(|_| Msg::ShowPassword);
+        let on_password_click = ctx.link().callback(|_| Msg::ShowInputPassword);
+        let on_submit = ctx.link().callback(|e: SubmitEvent| {
             e.prevent_default();
             Msg::GeneratePassword
         });
@@ -165,13 +173,29 @@ impl Component for App {
                         for
                         syncing."}</p>
                     </hgroup>
-                    <form onsubmit={onsubmit}>
+                    <form onsubmit={on_submit}>
                     <TextInput value={self.website.clone()} input_type={"text"} name={"Website"} autocomplete={"off"}
                         on_change={on_website_change} />
                     <TextInput value={self.username.clone()} input_type={"text"} name={"Username"} autocomplete={"email,username"}
                         on_change={on_username_change} />
-                    <TextInput value={self.password.clone()} input_type={"password"} name={"Password"}
-                        autocomplete={"current-password"} on_change={on_password_change} />
+                    <fieldset role="group">
+                        <TextInput value={self.password.clone()} input_type={if self.show_input_password {"text"} else {"password"}} name={"Password"}
+                            autocomplete={"current-password"} on_change={on_password_change} />
+                            <p><button style="white-space: nowrap; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;" onclick={on_password_click}>
+                            <i class={match self.fingerprint.get(0) {
+                                Some(s) => format!("fa-solid {}", s),
+                                None => String::new(), // or any default class name you want to use
+                            }} style="padding-right: 0.3rem;"></i>
+                            <i class={match self.fingerprint.get(1) {
+                                Some(s) => format!("fa-solid {}", s),
+                                None => String::new(), // or any default class name you want to use
+                            }} style="padding-right: 0.3rem;"></i>
+                            <i class={match self.fingerprint.get(2) {
+                                Some(s) => format!("fa-solid {}", s),
+                                None => String::new(), // or any default class name you want to use
+                            }}></i>
+                        </button></p>
+                    </fieldset>
                     <fieldset>
                         <nav>
                         <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
@@ -191,7 +215,7 @@ impl Component for App {
                         </div>
 
                     </fieldset>
-                    <button type="submit" class="contrast" {onclick}>{if self.new_password != "Generate and copy" && !self.show
+                    <button type="submit" class="contrast" onclick={on_click}>{if self.show == 0 {"Generate and copy"} else if self.show == 1
                         {"**************"} else {self.new_password.as_str()}}</button>
                     </form>
                 </div>

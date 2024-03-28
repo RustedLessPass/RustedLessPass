@@ -37,7 +37,5 @@ pub fn text_input(props: &Props) -> Html {
     html! {
         <input type={input_type} name={name.clone()} placeholder={name.clone()} aria-label={name}  autocomplete={autocomplete}
         required=true {value} {oninput}/>
-        // <input type="password" name="password" placeholder="Password" aria-label="password"
-        //                 autocomplete="current-password" required=true {value} {oninput}/>
     }
 }
