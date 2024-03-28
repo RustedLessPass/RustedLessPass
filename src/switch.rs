@@ -1,4 +1,3 @@
-// Importing necessary dependencies
 use std::cell::Cell;
 use web_sys::HtmlInputElement;
 use yew::events::InputEvent;
