@@ -15,7 +15,6 @@ fn get_value_from_input_event(e: InputEvent) -> String {
     let event: Event = e.dyn_into().unwrap_throw();
     let event_target = event.target().unwrap_throw();
     let target: HtmlInputElement = event_target.dyn_into().unwrap_throw();
-    web_sys::console::log_1(&target.value().into());
     target.value()
 }
 
@@ -30,12 +29,18 @@ pub fn text_input(props: &Props) -> Html {
         on_change,
     } = props.clone();
 
-    let oninput = Callback::from(move |input_event: InputEvent| {
-        on_change.emit(get_value_from_input_event(input_event));
-    });
+    let oninput = on_change.reform(|input_event: InputEvent| get_value_from_input_event(input_event));
 
     html! {
-        <input type={input_type} name={name.clone()} placeholder={name.clone()} aria-label={name}  autocomplete={autocomplete}
-        required=true {value} {oninput}/>
+        <input
+            type={input_type}
+            name={name.clone()}
+            placeholder={name.clone()}
+            aria-label={name}
+            autocomplete={autocomplete}
+            required=true
+            value={value}
+            oninput={oninput}
+        />
     }
 }
