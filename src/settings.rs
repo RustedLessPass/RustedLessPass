@@ -14,7 +14,7 @@ pub struct Settings {
 
 impl Settings {
     // Define a constant key for storage
-    const KEY: &'static str = "yew.boids.settings";
+    const KEY: &'static str = "m1n.rustlesspass.settings";
 
     // Load settings from local storage or return default
     pub fn load() -> Self {
