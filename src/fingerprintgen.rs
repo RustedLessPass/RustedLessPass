@@ -59,18 +59,25 @@ fn get_icon(sha256: &str) -> &'static str {
 }
 
 pub fn fingerprint_calculate(input: &str) -> Vec<String> {
-    let hashed_input: String = get_fingerprint(input)
-        .iter()
-        .map(|b| format!("{:02x}", b))
-        .collect();
     let mut hashed_input_icons: Vec<String> = Vec::new();
-    let mut x = 0;
-    let mut y = 6;
-    for _i in 0..3 {
-        let hashed_segment_icon = get_icon(&hashed_input[x..y]);
-        hashed_input_icons.push(hashed_segment_icon.to_string());
-        x += 6;
-        y += 6;
+    // Set default icons if input is empty
+    if input == "" {
+        hashed_input_icons.push("fa-heart".to_string());
+        hashed_input_icons.push("fa-brands fa-rust".to_string());
+        hashed_input_icons.push("fa-rocket".to_string());
+    } else {
+        let hashed_input: String = get_fingerprint(input)
+            .iter()
+            .map(|b| format!("{:02x}", b))
+            .collect();
+        let mut x = 0;
+        let mut y = 6;
+        for _i in 0..3 {
+            let hashed_segment_icon = get_icon(&hashed_input[x..y]);
+            hashed_input_icons.push(hashed_segment_icon.to_string());
+            x += 6;
+            y += 6;
+        }
     }
     hashed_input_icons
 }
