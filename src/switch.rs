@@ -18,6 +18,7 @@ fn next_switch_id() -> usize {
 pub struct Props {
     pub label: &'static str,
     pub value: u64,
+    pub value_disabled: bool,
     pub onchange: Callback<u64>,
 }
 
@@ -44,6 +45,7 @@ impl Component for Switch {
         let Props {
             label,
             value,
+            value_disabled,
             ref onchange,
         } = *ctx.props();
 
@@ -64,7 +66,7 @@ impl Component for Switch {
         // Render the switch component
         html! {
             <label for={id.clone()}>
-                <input type="checkbox" {oninput} role="switch" id={label} name={label} checked={if display_value == 0 { false } else { true }} />
+                <input type="checkbox" {oninput} role="switch" id={label} name={label} checked={if display_value == 0 { false } else { true }} disabled={value_disabled}/>
                 {label}
             </label>
         }

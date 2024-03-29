@@ -5,10 +5,11 @@
 mod app; // Module for the main application component
 mod fingerprintgen; // Module for fingerprint generation functionality
 mod passgen; // Module for password generation functionality
+mod password_utils;
 mod settings; // Module for application settings
 mod slider; // Module for slider component
 mod switch; // Module for switch component
-mod text_input; // Module for text input component
+mod text_input; // Module for text input component // Module for password utilities
 
 use app::App; // Importing the main application component
 
