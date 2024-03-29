@@ -1,10 +1,12 @@
 # RustLessPass
 
-**RustLessPass** is a password manager built in Rust.  
-It runs directly in your web browser using WebAssembly, so there's no need for any server computation, only for delivering the app.  
-Inspired by LessPass, it follows the same principles but works independently.  
-This means you can generate strong passwords without relying on external servers.  
-It's easy, secure, and compatible with LessPass.
+A password manager built in Rust, compatible with LessPass.
+
+Powered by Yew for WebAssembly compatibility, it runs directly in your web browser, so there's no need for any server computation—only for delivering the app.
+
+Inspired by LessPass, it follows the same principles but works independently.
+
+This means you can generate strong passwords without relying on external servers.
 
 ## Screenshot
 
