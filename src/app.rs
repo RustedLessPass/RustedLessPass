@@ -165,7 +165,7 @@ impl Component for App {
             <nav class="container-fluid">
                 <ul>
                 <li>
-                    <a href="./"><strong>{"RustlessPass"}</strong></a>       // Application name
+                    <a href="./"><strong>{"RustLessPass"}</strong></a>       // Application name
                 </li>
                 </ul>
                 <ul>
@@ -244,7 +244,7 @@ impl Component for App {
                 <small>{"Built with "}<a href="https://rust-lang.org" class="secondary">{"Rust"}</a>{", "}<a
                     href="https://github.com/71/lesspass.rs" class="secondary">{"lesspass.rs"}</a>{", "}<a href="https://yew.rs"
                     class="secondary">{"Yew"}</a>{" and "}<a href="https://picocss.com" class="secondary">{"Pico"}</a>{" • "}
-                <a href="https://github.com/M1n-74316D65/RustlessPass" class="secondary">{"Source code"}</a></small>    // Footer information
+                <a href="https://github.com/M1n-74316D65/RustLessPass" class="secondary">{"Source code"}</a></small>    // Footer information
             </footer>
 
             <script src="minimal-theme-switcher.js"></script>       // JavaScript for theme switcher
