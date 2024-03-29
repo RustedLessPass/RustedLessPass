@@ -199,19 +199,19 @@ impl Component for App {
                     <fieldset role="group">
                         <TextInput value={self.password.clone()} input_type={if self.show_input_password {"text"} else {"password"}} name={"Password"}
                             autocomplete={"current-password"} on_change={on_password_change} />   // Password input field
-                            <p><button style="white-space: nowrap; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;" onclick={on_password_click}>
+                            <p><button style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;" onclick={on_password_click}>
                             <i class={match self.fingerprint.get(0) {
                                 Some(s) => format!("fa fa-fw {}", s),
                                 None => String::new(),
-                            }} style="padding-right: 0.3rem;"></i>
+                            }} style="margin-right: 0.2rem;"></i>
                             <i class={match self.fingerprint.get(1) {
                                 Some(s) => format!("fa fa-fw {}", s),
                                 None => String::new(),
-                            }} style="padding-right: 0.3rem;"></i>
+                            }} style="margin-left: 0.2rem;margin-right: 0.2rem;p"></i>
                             <i class={match self.fingerprint.get(2) {
                                 Some(s) => format!("fa fa-fw {}", s),
                                 None => String::new(),
-                            }}></i>
+                            }} style="margin-left: 0.2rem;"></i>
                         </button></p>                              // Password fingerprint icons
                     </fieldset>
                     <fieldset>
