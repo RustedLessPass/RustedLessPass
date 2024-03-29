@@ -1,4 +1,4 @@
-# RustLessPass
+# RustedLessPass 
 
 A password manager built in Rust, compatible with LessPass.
 
@@ -10,31 +10,31 @@ This means you can generate strong passwords without relying on external servers
 
 ## Screenshot
 
-![imagen](https://github.com/M1n-74316D65/RustLessPass/assets/54779580/9edf60a7-581f-4474-beaf-20ba76841310)
+![imagen](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/9edf60a7-581f-4474-beaf-20ba76841310)
 
 ## Usage
 
-RustLessPass provides a simple and secure way to generate and manage passwords. Users only need to remember their master password, and RustLessPass will generate unique passwords for each site or service based on user-specific inputs.
+RustedLessPass provides a simple and secure way to generate and manage passwords. Users only need to remember their master password, and RustedLessPass will generate unique passwords for each site or service based on user-specific inputs.
 
-To use RustLessPass:
+To use RustedLessPass:
 
 1. Enter your master password.
 2. Provide the website name and login information.
-3. RustLessPass will generate a unique password for that site.
+3. RustedLessPass will generate a unique password for that site.
 
 You can then use the generated password when signing up or logging into websites, without the need to store or remember individual passwords.
 
 ## Installation
 
-To run RustLessPass locally, follow these steps:
+To run RustedLessPass locally, follow these steps:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/M1n-74316D65/RustLessPass.git
+git clone https://github.com/RustedLessPass/RustedLessPass.git
 ```
 2. Navigate to the project directory:
 ```bash
-cd RustLessPass
+cd RustedLessPass
 ```
 3. Install dependencies:
 ```bash
@@ -47,11 +47,11 @@ cargo install --locked trunk
 trunk serve --open
 ```
 
-This will open the RustLessPass application in your default web browser.
+This will open the RustedLessPass application in your default web browser.
 
 ## Contributing
 
-Contributions to RustLessPass are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+Contributions to RustedLessPass are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
 ## Special Thanks
 
@@ -65,4 +65,4 @@ Sincere gratitude to:
 
 ## License
 
-RustLessPass is licensed under the [GPL-3.0 License](LICENSE).
+RustedLessPass is licensed under the [GPL-3.0 License](LICENSE).
