@@ -165,13 +165,13 @@ impl Component for App {
             <nav class="container-fluid">
                 <ul>
                 <li>
-                    <a href="./"><strong>{"RustLessPass"}</strong></a>       // Application name
+                    <a href="./"><strong>{"RustLessPass"}</strong></a> // Application name
                 </li>
                 </ul>
                 <ul>
                 <li>
                     <details class="dropdown">
-                    <summary role="button" class="secondary">{"Theme"}</summary>      // Theme dropdown
+                    <summary role="button" class="secondary">{"Theme"}</summary> // Theme dropdown
                     <ul dir="rtl">
                         <li><a href="#" data-theme-switcher="auto">{"Auto"}</a></li>
                         <li><a href="#" data-theme-switcher="light">{"Light"}</a></li>
@@ -186,55 +186,54 @@ impl Component for App {
                 <article>
                 <div>
                     <hgroup class="title">
-                    <h1>{"Stateless Password Manager"}</h1>           // Application title
+                    <h1>{"Stateless Password Manager"}</h1> // Application title
                     <p>{"Remember only one master password to access your passwords at any time, on any device, without the need
                         for
-                        syncing."}</p>                             // Application description
+                        syncing."}</p> // Application description
                     </hgroup>
                     <form onsubmit={on_submit}>
                     <TextInput value={self.website.clone()} input_type={"text"} name={"Website"} autocomplete={"off"}
-                        on_change={on_website_change} />           // Website input field
+                        on_change={on_website_change} /> // Website input field
                     <TextInput value={self.username.clone()} input_type={"text"} name={"Username"} autocomplete={"email,username"}
-                        on_change={on_username_change} />         // Username input field
+                        on_change={on_username_change} /> // Username input field
                     <fieldset role="group">
-                        <TextInput value={self.password.clone()} input_type={if self.show_input_password {"text"} else {"password"}} name={"Password"}
-                            autocomplete={"current-password"} on_change={on_password_change} />   // Password input field
-                            <p><button style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;" onclick={on_password_click}>
-                            <i class={match self.fingerprint.get(0) {
-                                Some(s) => format!("fa fa-fw {}", s),
-                                None => String::new(),
+                        <TextInput value={self.password.clone()} input_type={if self.show_input_password {"text"} else {"password"}}
+                        name={"Password"} autocomplete={"current-password"} on_change={on_password_change} /> // Password input field
+                        <p><button
+                            style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;"
+                            onclick={on_password_click}>
+                            <i class={match self.fingerprint.get(0) { Some(s)=> format!("fa fa-fw {}", s),
+                            None => String::new(),
                             }} style="margin-right: 0.2rem;"></i>
-                            <i class={match self.fingerprint.get(1) {
-                                Some(s) => format!("fa fa-fw {}", s),
-                                None => String::new(),
+                            <i class={match self.fingerprint.get(1) { Some(s)=> format!("fa fa-fw {}", s),
+                            None => String::new(),
                             }} style="margin-left: 0.2rem;margin-right: 0.2rem;p"></i>
-                            <i class={match self.fingerprint.get(2) {
-                                Some(s) => format!("fa fa-fw {}", s),
-                                None => String::new(),
+                            <i class={match self.fingerprint.get(2) { Some(s)=> format!("fa fa-fw {}", s),
+                            None => String::new(),
                             }} style="margin-left: 0.2rem;"></i>
-                        </button></p>                              // Password fingerprint icons
+                        </button></p> // Password fingerprint icons
                     </fieldset>
                     <fieldset>
                         <nav>
                         <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
-                            value={settings.lowercase.clone()} />       // Switch for lowercase
+                            value={settings.lowercase.clone()} /> // Switch for lowercase
                         <Switch label="A-Z" onchange={settings_callback!(ctx.link(), settings; uppercase)}
-                            value={settings.uppercase.clone()} />       // Switch for uppercase
+                            value={settings.uppercase.clone()} /> // Switch for uppercase
                         <Switch label="0-9" onchange={settings_callback!(ctx.link(), settings; numbers)}
-                            value={settings.numbers.clone()} />         // Switch for numbers
+                            value={settings.numbers.clone()} /> // Switch for numbers
                         <Switch label="%!@" onchange={settings_callback!(ctx.link(), settings; symbols)}
-                            value={settings.symbols.clone()} />         // Switch for symbols
+                            value={settings.symbols.clone()} /> // Switch for symbols
                         </nav>
                         <div class="grid" style="padding: 0rem;">
                         <Slider label="Size" max=35 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
-                            value={settings.size.clone()} />           // Slider for password size
+                            value={settings.size.clone()} /> // Slider for password size
                         <Slider label="Counter" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; counter)}
-                            value={settings.counter.clone()} />        // Slider for password counter
+                            value={settings.counter.clone()} /> // Slider for password counter
                         </div>
 
                     </fieldset>
                     <button type="submit" class="contrast">{if self.show == 0 {"Generate and copy"} else if self.show == 1
-                        {"**************"} else {self.new_password.as_str()}}</button>     // Submit button
+                        {"**************"} else {self.new_password.as_str()}}</button> // Submit button
                     </form>
                 </div>
                 </article>
@@ -244,10 +243,10 @@ impl Component for App {
                 <small>{"Built with "}<a href="https://rust-lang.org" class="secondary">{"Rust"}</a>{", "}<a
                     href="https://github.com/71/lesspass.rs" class="secondary">{"lesspass.rs"}</a>{", "}<a href="https://yew.rs"
                     class="secondary">{"Yew"}</a>{" and "}<a href="https://picocss.com" class="secondary">{"Pico"}</a>{" • "}
-                <a href="https://github.com/M1n-74316D65/RustLessPass" class="secondary">{"Source code"}</a></small>    // Footer information
+                <a href="https://github.com/M1n-74316D65/RustLessPass" class="secondary">{"Source code"}</a></small> // Footer information
             </footer>
 
-            <script src="minimal-theme-switcher.js"></script>       // JavaScript for theme switcher
+            <script src="minimal-theme-switcher.js"></script> // JavaScript for theme switcher
             </body>
         }
     }
