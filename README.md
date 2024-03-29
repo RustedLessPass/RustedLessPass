@@ -2,6 +2,11 @@
 
 RustLessPass is a password manager built with Rust, utilizing the lesspass.rs library for password generation and the Yew framework for building the web interface.
 
+## Screenshot
+
+![imagen](https://github.com/M1n-74316D65/RustLessPass/assets/54779580/9edf60a7-581f-4474-beaf-20ba76841310)
+
+
 ## Installation
 
 To run RustLessPass locally, follow these steps:
