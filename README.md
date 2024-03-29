@@ -10,7 +10,7 @@ This means you can generate strong passwords without relying on external servers
 
 ## Screenshot
 
-![imagen](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/9edf60a7-581f-4474-beaf-20ba76841310)
+![imagen](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/5425f747-9c2e-4b90-b639-9a8b0f311052)
 
 ## Usage
 
