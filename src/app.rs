@@ -1,42 +1,11 @@
-use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
 use crate::fingerprintgen::fingerprint_calculate;
-use crate::passgen::generate_password;
+use crate::password_utils::{update_disabled_characters, update_show_state};
 use crate::settings::Settings;
 use crate::slider::Slider;
 use crate::switch::Switch;
 use crate::text_input::TextInput;
-
-fn update_disabled_characters(settings: &Settings) -> String {
-    if settings.lowercase == 1
-        && settings.uppercase == 0
-        && settings.numbers == 0
-        && settings.symbols == 0
-    {
-        return "a-z".to_string();
-    } else if settings.lowercase == 0
-        && settings.uppercase == 1
-        && settings.numbers == 0
-        && settings.symbols == 0
-    {
-        return "A-Z".to_string();
-    } else if settings.lowercase == 0
-        && settings.uppercase == 0
-        && settings.numbers == 1
-        && settings.symbols == 0
-    {
-        return "0-9".to_string();
-    } else if settings.lowercase == 0
-        && settings.uppercase == 0
-        && settings.numbers == 0
-        && settings.symbols == 1
-    {
-        return "%!@".to_string();
-    } else {
-        return "".to_string();
-    }
-}
 
 // Define message enum to handle events
 pub enum Msg {
@@ -115,39 +84,14 @@ impl Component for App {
             }
             Msg::GeneratePassword => {
                 // Handle generate password message
-                self.show = match self.show {
-                    // Manage UI state
-                    0 => {
-                        self.new_password = generate_password(
-                            &self.website,
-                            &self.username,
-                            &self.password,
-                            self.settings.lowercase != 0,
-                            self.settings.uppercase != 0,
-                            self.settings.numbers != 0,
-                            self.settings.symbols != 0,
-                            self.settings.size as usize,
-                            self.settings.counter as u32,
-                        ); // Generate new password
-                        let cloned_self = self.new_password.clone(); // Clone new password
-                        let _task = spawn_local(async move {
-                            let window = web_sys::window().expect("window"); // Get window object
-                            let nav = window.navigator().clipboard(); // Get clipboard object
-                            match nav {
-                                Some(a) => {
-                                    let p = a.write_text(&cloned_self); // Write text to clipboard
-                                    let _result = wasm_bindgen_futures::JsFuture::from(p)
-                                        .await
-                                        .expect("clipboard populated"); // Await clipboard write
-                                }
-                                None => {}
-                            };
-                        });
-                        1 // Change UI state
-                    }
-                    1 => 2, // Change UI state
-                    _ => 1, // Change UI state
-                };
+                (self.show, self.new_password) = update_show_state(
+                    self.show,
+                    &self.website,
+                    &self.username,
+                    &self.password,
+                    &self.settings,
+                    &self.new_password,
+                );
             }
 
             Msg::ShowInputPassword => {
