@@ -42,10 +42,6 @@ jobs:
           git submodule update --init --recursive
       - name: Build the Rust WASM app and all of its assets
         run: trunk build --public-url . --release
-      - name: Copy things
-        run: |
-          cp minimal-theme-switcher.js ./dist
-          cp favicon.ico ./dist
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
