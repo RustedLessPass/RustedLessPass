@@ -17,7 +17,7 @@ const ICONS: [&str; 46] = [
     "fa-truck",
     "fa-jpy",
     "fa-eur",
-    "fa-btc",
+    "fa-brands fa-btc",
     "fa-usd",
     "fa-gbp",
     "fa-archive",
@@ -45,7 +45,7 @@ const ICONS: [&str; 46] = [
     "fa-eye",
     "fa-flag",
     "fa-flask",
-    "fa-futbol-o",
+    "fa-futbol",
     "fa-gamepad",
     "fa-graduation-cap",
 ];

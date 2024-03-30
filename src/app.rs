@@ -222,7 +222,7 @@ impl Component for App {
                 <a href="https://github.com/RustedLessPass/RustedLessPass" class="secondary">{"Source code"}</a></small> // Footer information
             </footer>
 
-            <script src="minimal-theme-switcher.js"></script> // JavaScript for theme switcher
+            <script src="assets/minimal-theme-switcher.js"></script> // JavaScript for theme switcher
             </body>
         }
     }
