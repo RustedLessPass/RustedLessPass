@@ -110,3 +110,18 @@ summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
 body > footer {
   padding: 1rem 0;
 }
+
+nav ul li img {
+  vertical-align: top;
+  margin-right: 0.1rem;
+  border-radius: var(--pico-border-radius);
+}
+
+nav ul li strong {
+  vertical-align: middle;
+  margin-left: 0.1rem;
+}
+
+p {
+  text-wrap: pretty;
+}
