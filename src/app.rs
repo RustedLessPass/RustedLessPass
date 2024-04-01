@@ -27,7 +27,6 @@ pub struct App {
     fingerprint: Vec<String>,  // Password fingerprint
     show: u8,                  // State to manage UI
     show_input_password: bool, // Flag to show/hide password input
-    disabled: String,          // Flag to disable input fields
 }
 
 // Implement default trait for the main application component
@@ -42,7 +41,6 @@ impl Default for App {
             fingerprint: fingerprint_calculate(""),        // Calculate fingerprint
             show: 0,                                       // Initialize show state
             show_input_password: false,                    // Initialize show_input_password flag
-            disabled: String::new(),                       // Initialize disabled flag
         }
     }
 }
@@ -61,8 +59,8 @@ impl Component for App {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ChangeSettings(settings) => {
-                self.disabled = update_disabled_characters(&settings);
-                self.settings = settings; // Update settings
+                self.settings = settings.clone(); // Update settings
+                self.settings.disabled = update_disabled_characters(&settings);
                 self.settings.store(); // Store updated settings
                 self.show = 0; // Reset password button state
             }
@@ -192,16 +190,16 @@ impl Component for App {
                         <nav>
 
                         <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
-                            value={settings.lowercase.clone()} value_disabled={if self.disabled.clone()=="a-z" { true } else { false
+                            value={settings.lowercase.clone()} value_disabled={if self.settings.disabled.clone()=="a-z" { true } else { false
                             }} /> // Switch for lowercase
                         <Switch label="A-Z" onchange={settings_callback!(ctx.link(), settings; uppercase)}
-                            value={settings.uppercase.clone()} value_disabled={if self.disabled.clone()=="A-Z" { true } else { false
+                            value={settings.uppercase.clone()} value_disabled={if self.settings.disabled.clone()=="A-Z" { true } else { false
                             }} /> // Switch for uppercase
                         <Switch label="0-9" onchange={settings_callback!(ctx.link(), settings; numbers)}
-                            value={settings.numbers.clone()} value_disabled={if self.disabled.clone()=="0-9" { true } else { false
+                            value={settings.numbers.clone()} value_disabled={if self.settings.disabled.clone()=="0-9" { true } else { false
                             }} /> // Switch for numbers
                         <Switch label="%!@" onchange={settings_callback!(ctx.link(), settings; symbols)}
-                            value={settings.symbols.clone()} value_disabled={if self.disabled.clone()=="%!@" { true } else { false
+                            value={settings.symbols.clone()} value_disabled={if self.settings.disabled.clone()=="%!@" { true } else { false
                             }} /> // Switch for symbols
 
                         </nav>

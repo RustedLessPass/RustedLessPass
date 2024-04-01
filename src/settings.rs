@@ -4,12 +4,13 @@ use serde::{Deserialize, Serialize};
 // Define a struct to hold settings
 #[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 pub struct Settings {
-    pub size: u64,      // Length of generated password
-    pub counter: u64,   // Number of passwords generated
-    pub lowercase: u64, // Include lowercase characters
-    pub uppercase: u64, // Include uppercase characters
-    pub numbers: u64,   // Include numeric characters
-    pub symbols: u64,   // Include symbolic characters
+    pub size: u64,        // Length of generated password
+    pub counter: u64,     // Number of passwords generated
+    pub lowercase: u64,   // Include lowercase characters
+    pub uppercase: u64,   // Include uppercase characters
+    pub numbers: u64,     // Include numeric characters
+    pub symbols: u64,     // Include symbolic characters
+    pub disabled: String, // List of disabled characters
 }
 
 impl Settings {
@@ -31,12 +32,13 @@ impl Default for Settings {
     // Provide a default implementation
     fn default() -> Self {
         Self {
-            size: 16,     // Default password length
-            counter: 1,   // Default number of passwords
-            lowercase: 1, // Include lowercase characters by default
-            uppercase: 1, // Include uppercase characters by default
-            numbers: 1,   // Include numeric characters by default
-            symbols: 1,   // Include symbolic characters by default
+            size: 16,                // Default password length
+            counter: 1,              // Default number of passwords
+            lowercase: 1,            // Include lowercase characters by default
+            uppercase: 1,            // Include uppercase characters by default
+            numbers: 1,              // Include numeric characters by default
+            symbols: 1,              // Include symbolic characters by default
+            disabled: String::new(), // No disabled characters by default
         }
     }
 }
