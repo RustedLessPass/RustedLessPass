@@ -139,7 +139,8 @@ impl Component for App {
             <nav class="container-fluid">
                 <ul>
                 <li>
-                    <a href="./"><strong>{"RustedLessPass"}</strong></a> // Application name
+                    <a href="./"><img src="assets/favicon.ico" alt="Description of the image" width="37.7048437335240"
+                        height="37.7048437335240"/><strong>{"RustedLessPass"}</strong></a> // Application name
                 </li>
                 </ul>
                 <ul>
@@ -173,8 +174,8 @@ impl Component for App {
                     <fieldset role="group">
                         <TextInput value={self.password.clone()} input_type={if self.show_input_password {"text"} else {"password"}}
                         name={"Password"} autocomplete={"current-password"} on_change={on_password_change} /> // Password input field
-                        <p><button
-                            style="border-top-left-radius: 0px;border-bottom-left-radius: 0px;white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;"
+                        <button
+                            style="white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;"
                             onclick={on_password_click}>
                             <i class={match self.fingerprint.get(0) { Some(s)=> format!("fa fa-fw {}", s),
                             None => String::new(),
@@ -185,19 +186,23 @@ impl Component for App {
                             <i class={match self.fingerprint.get(2) { Some(s)=> format!("fa fa-fw {}", s),
                             None => String::new(),
                             }} style="margin-left: 0.2rem;"></i>
-                        </button></p> // Password fingerprint icons
+                        </button> // Password fingerprint icons
                     </fieldset>
                     <fieldset>
                         <nav>
 
                         <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
-                            value={settings.lowercase.clone()} value_disabled={if self.disabled.clone() == "a-z" { true } else { false }}/> // Switch for lowercase
+                            value={settings.lowercase.clone()} value_disabled={if self.disabled.clone()=="a-z" { true } else { false
+                            }} /> // Switch for lowercase
                         <Switch label="A-Z" onchange={settings_callback!(ctx.link(), settings; uppercase)}
-                            value={settings.uppercase.clone()} value_disabled={if self.disabled.clone() == "A-Z" { true } else { false }}/> // Switch for uppercase
+                            value={settings.uppercase.clone()} value_disabled={if self.disabled.clone()=="A-Z" { true } else { false
+                            }} /> // Switch for uppercase
                         <Switch label="0-9" onchange={settings_callback!(ctx.link(), settings; numbers)}
-                            value={settings.numbers.clone()} value_disabled={if self.disabled.clone() == "0-9" { true } else { false }}/> // Switch for numbers
+                            value={settings.numbers.clone()} value_disabled={if self.disabled.clone()=="0-9" { true } else { false
+                            }} /> // Switch for numbers
                         <Switch label="%!@" onchange={settings_callback!(ctx.link(), settings; symbols)}
-                            value={settings.symbols.clone()} value_disabled={if self.disabled.clone() == "%!@" { true } else { false }}/> // Switch for symbols
+                            value={settings.symbols.clone()} value_disabled={if self.disabled.clone()=="%!@" { true } else { false
+                            }} /> // Switch for symbols
 
                         </nav>
                         <div class="grid" style="padding: 0rem;">
