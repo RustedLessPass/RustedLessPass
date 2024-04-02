@@ -95,7 +95,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tauriScript: cargo install tauri-cli@=2.0.0-beta.12
           releaseId: ${{ needs.create-release.outputs.release_id }}
           args: ${{ matrix.settings.args }}
 
