@@ -1,6 +1,6 @@
 # RustedLessPass 
 
-A password manager built in Rust, compatible with LessPass.
+A password manager built in Rust, compatible with [LessPass](https://github.com/lesspass/lesspass).
 
 Powered by Yew for WebAssembly compatibility, it runs directly in your web browser, so there's no need for any server computation—only for delivering the app.
 
