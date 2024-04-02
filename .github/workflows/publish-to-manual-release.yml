@@ -90,7 +90,8 @@ jobs:
 
       - name: install frontend dependencies
         run: cargo install --locked trunk # change this to npm, pnpm or bun depending on which one you use.
-
+      - name: build in release mode
+        run: cargo build --release
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
