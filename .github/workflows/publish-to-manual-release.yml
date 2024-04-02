@@ -89,7 +89,9 @@ jobs:
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
 
       - name: install frontend dependencies
-        run: cargo install --locked trunk # change this to npm, pnpm or bun depending on which one you use.
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall trunk
       - name: build in release mode
         run: cargo build --release
       - uses: tauri-apps/tauri-action@v0
