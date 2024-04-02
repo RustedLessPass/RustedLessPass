@@ -1,5 +1,8 @@
 {
   "emmet.includeLanguages": {
     "rust": "html"
-  }
+  },
+  "conventionalCommits.scopes": [
+    "tauri"
+  ]
 }
