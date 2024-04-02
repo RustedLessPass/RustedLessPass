@@ -3,6 +3,7 @@
     "rust": "html"
   },
   "conventionalCommits.scopes": [
-    "tauri"
+    "tauri",
+    "pages"
   ]
 }
