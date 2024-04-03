@@ -92,8 +92,6 @@ jobs:
           curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
           cargo binstall trunk --no-confirm
           cargo install tauri-cli@=2.0.0-beta.12
-      - name: build in release mode
-        run: trunk build --release
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
