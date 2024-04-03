@@ -1,5 +1,5 @@
 use lesspass::get_fingerprint;
-
+use std::fmt::Write;
 // Define a constant array of icon names
 const ICONS: [&str; 46] = [
     "fa-hashtag",
@@ -78,8 +78,10 @@ pub fn fingerprint_calculate(input: &str) -> Vec<String> {
         let hashed_input: String = get_fingerprint(input)
             // Convert the byte array to a hexadecimal string
             .iter()
-            .map(|b| format!("{:02x}", b))
-            .collect();
+            .fold(String::new(), |mut acc, &byte| {
+                write!(acc, "{:02x}", byte).expect("Failed to write to string");
+                acc
+            });
 
         // Divide the hashed input into segments and assign icons
         let mut x = 0;

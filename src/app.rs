@@ -175,13 +175,13 @@ impl Component for App {
                         <button
                             style="white-space: nowrap;margin-left: 0rem; padding-left: 0.5rem; padding-right: 0.5rem; align-self: center;"
                             onclick={on_password_click}>
-                            <i class={match self.fingerprint.get(0) { Some(s)=> format!("fa fa-fw {}", s),
+                            <i class={match self.fingerprint.first() { Some(s)=> format!("fa fa-fw {}", s),
                             None => String::new(),
                             }} style="margin-right: 0.2rem;"></i>
                             <i class={match self.fingerprint.get(1) { Some(s)=> format!("fa fa-fw {}", s),
                             None => String::new(),
                             }} style="margin-left: 0.2rem;margin-right: 0.2rem;p"></i>
-                            <i class={match self.fingerprint.get(2) { Some(s)=> format!("fa fa-fw {}", s),
+                            <i class={match self.fingerprint.last() { Some(s)=> format!("fa fa-fw {}", s),
                             None => String::new(),
                             }} style="margin-left: 0.2rem;"></i>
                         </button> // Password fingerprint icons
@@ -190,24 +190,20 @@ impl Component for App {
                         <nav>
 
                         <Switch label="a-z" onchange={settings_callback!(ctx.link(), settings; lowercase)}
-                            value={settings.lowercase.clone()} value_disabled={if self.settings.disabled.clone()=="a-z" { true } else { false
-                            }} /> // Switch for lowercase
+                            value={settings.lowercase} value_disabled={self.settings.disabled.clone() == "a-z"} /> // Switch for lowercase
                         <Switch label="A-Z" onchange={settings_callback!(ctx.link(), settings; uppercase)}
-                            value={settings.uppercase.clone()} value_disabled={if self.settings.disabled.clone()=="A-Z" { true } else { false
-                            }} /> // Switch for uppercase
+                            value={settings.uppercase} value_disabled={self.settings.disabled.clone() == "A-Z"} /> // Switch for uppercase
                         <Switch label="0-9" onchange={settings_callback!(ctx.link(), settings; numbers)}
-                            value={settings.numbers.clone()} value_disabled={if self.settings.disabled.clone()=="0-9" { true } else { false
-                            }} /> // Switch for numbers
+                            value={settings.numbers} value_disabled={self.settings.disabled.clone() == "0-9"} /> // Switch for numbers
                         <Switch label="%!@" onchange={settings_callback!(ctx.link(), settings; symbols)}
-                            value={settings.symbols.clone()} value_disabled={if self.settings.disabled.clone()=="%!@" { true } else { false
-                            }} /> // Switch for symbols
+                            value={settings.symbols} value_disabled={self.settings.disabled.clone() == "%!@"} /> // Switch for symbols
 
                         </nav>
                         <div class="grid" style="padding: 0rem;">
                         <Slider label="Size" max=35 min=1 onchange={settings_callback!(ctx.link(), settings; size)}
-                            value={settings.size.clone()} /> // Slider for password size
+                            value={settings.size} /> // Slider for password size
                         <Slider label="Counter" max=100 min=1 onchange={settings_callback!(ctx.link(), settings; counter)}
-                            value={settings.counter.clone()} /> // Slider for password counter
+                            value={settings.counter} /> // Slider for password counter
                         </div>
 
                     </fieldset>
