@@ -64,10 +64,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
       - name: Git submodule
         run: |
           git submodule update --init --recursive
@@ -95,7 +91,7 @@ jobs:
         run: |
           curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
           cargo binstall trunk --no-confirm
-          cargo install cargo add tauri-cli@=2.0.0-beta.12
+          cargo install tauri-cli@=2.0.0-beta.12
       - name: build in release mode
         run: trunk build --release
       - uses: tauri-apps/tauri-action@v0
