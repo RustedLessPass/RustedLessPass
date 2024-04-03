@@ -1,7 +1,8 @@
-name: "publish"
+name: "Publish APP"
 
 on:
-  pull_request:
+  release:
+    types: [published]
   workflow_dispatch:
 
 # `tauri-action` can also upload app bundles to an existing GitHub release.

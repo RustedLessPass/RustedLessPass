@@ -9,29 +9,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - platform: "macos-latest" # for Arm based macs (M1 and above).
-          args: "--target aarch64-apple-darwin"
-        - platform: "macos-latest" # for Intel based macs.
-          args: "--target x86_64-apple-darwin"
-        - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
-          args: ""
-        - platform: "windows-latest"
-          args: ""
+        settings:
+          - platform: "macos-latest" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin"
+          - platform: "macos-latest" # for Intel based macs.
+            args: "--target x86_64-apple-darwin"
+          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: ""
+          - platform: "windows-latest"
+            args: ""
 
     runs-on: ${{ matrix.settings.platform }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
+      - name: Git submodule
+        run: |
+          git submodule update --init --recursive
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
           targets: ${{ matrix.settings.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - name: install wasm32
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-unknown-unknown
 
       - name: install dependencies (ubuntu only)
         if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
@@ -40,12 +45,18 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
         # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+      - name: install dependencies (windows only)
+        if: matrix.settings.platform == 'windows-latest' # This must match the platform value defined above.
+        run: Set-ExecutionPolicy Unrestricted -Scope Process; iex (iwr "https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.ps1").Content
 
       - name: install frontend dependencies
-        run: yarn install # change this to npm, pnpm or bun depending on which one you use.
-
-      # If tagName and releaseId are omitted tauri-action will only build the app and won't try to upload any asstes.
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall trunk --no-confirm
+          cargo install tauri-cli@=2.0.0-beta.12
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tauriScript: cargo tauri
           args: ${{ matrix.settings.args }}
