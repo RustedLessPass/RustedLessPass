@@ -1,5 +1,17 @@
 use lesspass::{self, CharacterSet};
 
+pub struct PasswordOptions {
+    pub domain: String,
+    pub login: String,
+    pub master_password: String,
+    pub lowercase: bool,
+    pub uppercase: bool,
+    pub digits: bool,
+    pub symbols: bool,
+    pub length: usize,
+    pub counter: u32,
+}
+
 /// Generates a password based on given parameters.
 ///
 /// # Arguments
@@ -17,22 +29,21 @@ use lesspass::{self, CharacterSet};
 /// # Returns
 ///
 /// A string representing the generated password.
-pub fn generate_password(
-    domain: &str,
-    login: &str,
-    master_password: &str,
-    lowercase: bool,
-    uppercase: bool,
-    digits: bool,
-    symbols: bool,
-    length: usize,
-    counter: u32,
-) -> String {
-    let salt = lesspass::generate_salt(domain, login, counter);
-    let entropy =
-        lesspass::generate_entropy(master_password, &salt, lesspass::Algorithm::SHA256, 100000);
-    let charset = generate_charset(lowercase, uppercase, digits, symbols);
-    lesspass::render_password(&entropy, charset, length)
+pub fn generate_password(options: PasswordOptions) -> String {
+    let salt = lesspass::generate_salt(&options.domain, &options.login, options.counter);
+    let entropy = lesspass::generate_entropy(
+        &options.master_password,
+        &salt,
+        lesspass::Algorithm::SHA256,
+        100000,
+    );
+    let charset = generate_charset(
+        options.lowercase,
+        options.uppercase,
+        options.digits,
+        options.symbols,
+    );
+    lesspass::render_password(&entropy, charset, options.length)
 }
 
 /// Generates a character set based on given parameters.

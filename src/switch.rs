@@ -66,7 +66,7 @@ impl Component for Switch {
         // Render the switch component
         html! {
             <label for={id.clone()}>
-                <input type="checkbox" {oninput} role="switch" id={label} name={label} checked={if display_value == 0 { false } else { true }} disabled={value_disabled}/>
+                <input type="checkbox" {oninput} role="switch" id={label} name={label} checked={display_value != 0} disabled={value_disabled}/>
                 {label}
             </label>
         }
