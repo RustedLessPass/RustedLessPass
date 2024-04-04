@@ -13,16 +13,20 @@
     "windows": [
       {
         "title": "RustedLessPass",
-        "width": 800,
-        "height": 650
+        "width": 501.302,
+        "height": 638.628,
+        "minWidth": 501.302,
+        "minHeight": 638.628,
+        "resizable": true
       }
     ],
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; font-src 'self' data:"
     }
   },
   "bundle": {
     "active": true,
+    "category": "Utility",
     "targets": "all",
     "icon": [
       "../assets/favicon.png",
