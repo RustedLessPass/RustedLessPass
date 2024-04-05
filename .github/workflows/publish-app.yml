@@ -125,6 +125,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: process.env.release_id,
-              draft: false,
-              prerelease: false
+              draft: true,
+              prerelease: true
             })
