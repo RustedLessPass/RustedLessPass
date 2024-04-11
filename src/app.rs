@@ -137,7 +137,7 @@ impl Component for App {
             <nav class="container-fluid">
                 <ul>
                 <li>
-                    <a href="./"><img src="assets/favicon.ico" alt="Description of the image" width="37.7048437335240"
+                    <a href="./"><img src="assets/icons/maskable_icon_x48.png" alt="Description of the image" width="37.7048437335240"
                         height="37.7048437335240"/><strong>{"RustedLessPass"}</strong></a> // Application name
                 </li>
                 </ul>

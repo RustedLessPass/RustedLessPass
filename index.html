@@ -4,17 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>RustedLessPass</title>
     <meta name="description" content="A stateless Password Manager." />
+    <meta name="theme-color" content="#D24317" />
     <base data-trunk-public-url />
-
     <link data-trunk rel="rust" />
     <link data-trunk rel="copy-dir" href="assets" />
+    <link data-trunk rel="copy-file" href="manifest.json" />
+    <link data-trunk rel="copy-file" href="service_worker.js" />
+    <link rel="manifest" href="./manifest.json" />
+    <script>
+      // register ServiceWorker
+      window.onload = () => {
+        "use strict";
+
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("./service_worker.js");
+        }
+      };
+    </script>
+
     <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
     <link href="assets/fontawesome/css/brands.css" rel="stylesheet" />
     <link href="assets/fontawesome/css/solid.css" rel="stylesheet" />
     <link data-trunk rel="sass" href="assets/pico.orange.min.css" />
     <link data-trunk rel="sass" href="index.scss" />
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+    <link
+      rel="icon"
+      href="assets/icons/maskable_icon_x512.ico"
+      type="image/x-icon"
+    />
+    <title>RustedLessPass</title>
   </head>
 </html>

@@ -1,5 +1,6 @@
 [build]
 target = "./index.html"
+filehash = false
 
 [watch]
 ignore = ["./src-tauri"]
