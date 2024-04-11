@@ -1,6 +1,6 @@
 {
   "productName": "RustedLessPass",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "identifier": "org.rustedlesspass.dev",
   "build": {
     "beforeDevCommand": "trunk serve",
