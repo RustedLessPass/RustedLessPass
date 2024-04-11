@@ -14,7 +14,7 @@ For desktop users, convenient PC installers are accessible via [this link](https
 
 ## Screenshot
 
-![imagen](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/db64b347-6875-4886-8f79-c6d7c31bf1c0)
+![screenshot](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/68a67f3c-38f5-4e00-a7b1-28dfb92ad6f2)
 
 ## Usage
 
