@@ -3102,7 +3102,7 @@ dependencies = [
 
 [[package]]
 name = "rustedlesspass-web"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "console_error_panic_hook",
  "gloo 0.11.0",

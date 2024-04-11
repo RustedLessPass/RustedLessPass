@@ -5,6 +5,7 @@
   "conventionalCommits.scopes": [
     "tauri",
     "pages",
-    "actions"
+    "actions",
+    "pwa"
   ]
 }

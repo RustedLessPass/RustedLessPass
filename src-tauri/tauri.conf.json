@@ -1,6 +1,6 @@
 {
   "productName": "RustedLessPass",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "identifier": "org.rustedlesspass.dev",
   "build": {
     "beforeDevCommand": "trunk serve",
@@ -29,9 +29,9 @@
     "category": "Utility",
     "targets": "all",
     "icon": [
-      "../assets/favicon.png",
-      "../assets/favicon.icns",
-      "../assets/favicon.ico"
+      "../assets/icons/maskable_icon_x512.png",
+      "../assets/icons/maskable_icon_x512.icns",
+      "../assets/icons/maskable_icon_x512.ico"
     ]
   }
 }
