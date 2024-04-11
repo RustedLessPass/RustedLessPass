@@ -8,6 +8,10 @@ Inspired by LessPass, it follows the same principles but works independently.
 
 This means you can generate strong passwords without relying on external servers.
 
+## [Installer](https://github.com/RustedLessPass/RustedLessPass/releases/latest)
+
+For desktop users, convenient PC installers are accessible via [this link](https://github.com/RustedLessPass/RustedLessPass/releases/latest). If you're using a mobile device, please use the Progressive Web App (PWA) for seamless installation and usage.
+
 ## Screenshot
 
 ![imagen](https://github.com/RustedLessPass/RustedLessPass/assets/54779580/db64b347-6875-4886-8f79-c6d7c31bf1c0)
@@ -66,3 +70,5 @@ Sincere gratitude to:
 ## License
 
 RustedLessPass is licensed under the [GPL-3.0 License](LICENSE).
+
+<br/>README made with ChatGPT.
