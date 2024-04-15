@@ -3,10 +3,12 @@ name: "Cargo test"
 on: [pull_request]
 
 jobs:
-    test:
-      name: cargo test
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: dtolnay/rust-toolchain@stable
-        - run: cargo test --all-features
+  test:
+    name: cargo test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          git submodule update --init --recursive
+          cargo test --all-features
