@@ -1,6 +1,15 @@
+/*
+    This module contains functions to calculate a fingerprint based on an input string and retrieve corresponding icons using SHA256 hashing.
+
+    The `get_icon` function retrieves an icon based on a provided SHA256 hash.
+    The `fingerprint_calculate` function calculates a fingerprint based on the input string and returns corresponding icons.
+
+    The code also includes unit tests for both empty and non-empty input cases.
+*/
+
 use lesspass::get_fingerprint;
 use std::fmt::Write;
-// Define a constant array of icon names
+
 const ICONS: [&str; 46] = [
     "fa-hashtag",
     "fa-heart",
@@ -50,25 +59,42 @@ const ICONS: [&str; 46] = [
     "fa-graduation-cap",
 ];
 
-// Function to retrieve an icon based on the provided SHA256 hash
+/*
+    Retrieves an icon based on the provided SHA256 hash.
+
+    # Arguments
+
+    * `sha256` - A hexadecimal SHA256 hash string.
+
+    # Returns
+
+    * The name of the icon corresponding to the hash.
+*/
 fn get_icon(sha256: &str) -> &'static str {
     // Convert the hexadecimal SHA256 hash to a u32 integer
     let sum = match u32::from_str_radix(sha256, 16) {
         Ok(parsed_value) => parsed_value,
-        // Return a default icon if the hash cannot be parsed
         Err(_) => return "default_icon",
     };
     // Calculate the index of the icon based on the hash value
     let index = sum % ICONS.len() as u32;
-    // Return the icon name corresponding to the calculated index
     ICONS[index as usize]
 }
 
-// Function to calculate and return a fingerprint based on the input string
+/*
+    Calculates and returns a fingerprint based on the input string.
+
+    # Arguments
+
+    * `input` - The input string to calculate the fingerprint from.
+
+    # Returns
+
+    * A vector containing the icons corresponding to the fingerprint segments.
+*/
 pub fn fingerprint_calculate(input: &str) -> Vec<String> {
     let mut hashed_input_icons: Vec<String> = Vec::new();
 
-    // Set default icons if input is empty
     if input.is_empty() {
         hashed_input_icons.push("fa-heart".to_string());
         hashed_input_icons.push("fa-brands fa-rust".to_string());
@@ -104,7 +130,6 @@ mod tests {
 
     #[test]
     fn test_fingerprint_calculate_empty_input() {
-        // Arrange
         let input = "";
         let expected_output = vec![
             "fa-heart".to_string(),
@@ -121,60 +146,43 @@ mod tests {
 
     #[test]
     fn test_fingerprint_calculate_non_empty_input_0() {
-        // Arrange
         let input = "lorem ipsum";
-        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
-        // You need to provide expected values manually or mock the functions for testing purposes.
         let expected_output = vec![
             "fa-car".to_string(),     // Provide expected icon for the first segment
             "fa-hashtag".to_string(), // Provide expected icon for the second segment
             "fa-bug".to_string(),     // Provide expected icon for the third segment
         ];
 
-        // Act
         let result = fingerprint_calculate(input);
 
-        // Assert
         assert_eq!(result, expected_output);
     }
 
     #[test]
     fn test_fingerprint_calculate_non_empty_input_1() {
-        // Arrange
         let input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque sodales ut etiam sit amet nisl purus in mollis.";
-        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
-        // You need to provide expected values manually or mock the functions for testing purposes.
         let expected_output = vec![
             "fa-rocket".to_string(),  // Provide expected icon for the first segment
             "fa-coffee".to_string(),  // Provide expected icon for the second segment
             "fa-cutlery".to_string(), // Provide expected icon for the third segment
         ];
 
-        // Act
         let result = fingerprint_calculate(input);
 
-        // Assert
         assert_eq!(result, expected_output);
     }
 
     #[test]
     fn test_fingerprint_calculate_non_empty_input_2() {
-        // Arrange
         let input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque sodales ut etiam sit amet nisl purus in mollis. Eu consequat ac felis donec et odio pellentesque diam volutpat. Mi in nulla posuere sollicitudin. Euismod quis viverra nibh cras. Tristique nulla aliquet enim tortor at auctor urna nunc. Dignissim convallis aenean et tortor at. Turpis egestas pretium aenean pharetra. Sed vulputate odio ut enim. Faucibus et molestie ac feugiat. Donec ultrices tincidunt arcu non sodales neque sodales ut etiam. Donec pretium vulputate sapien nec sagittis aliquam malesuada. Mauris cursus mattis molestie a iaculis. Hendrerit gravida rutrum quisque non. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Et leo duis ut diam quam nulla. Quam lacus suspendisse faucibus interdum posuere lorem. Adipiscing elit ut aliquam purus sit amet. Consectetur adipiscing elit ut aliquam purus sit amet. Erat imperdiet sed euismod nisi porta lorem mollis.";
-        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
-        // You need to provide expected values manually or mock the functions for testing purposes.
         let expected_output = vec![
-            "fa-university".to_string(),     // Provide expected icon for the first segment
-            "fa-coffee".to_string(), // Provide expected icon for the second segment
-            "fa-hotel".to_string(),     // Provide expected icon for the third segment
+            "fa-university".to_string(), // Provide expected icon for the first segment
+            "fa-coffee".to_string(),     // Provide expected icon for the second segment
+            "fa-hotel".to_string(),      // Provide expected icon for the third segment
         ];
 
-        // Act
         let result = fingerprint_calculate(input);
 
-        // Assert
         assert_eq!(result, expected_output);
     }
-
-    // Add more test cases as needed...
 }

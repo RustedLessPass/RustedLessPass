@@ -1,3 +1,14 @@
+/*
+    This module contains functions for generating passwords based on various options
+    using the LessPass algorithm.
+
+    The `generate_password` function generates a password based on provided parameters.
+    The `generate_charset` function generates the character set based on specified options.
+
+    The file also includes unit tests to ensure the correctness of password generation
+    under different scenarios.
+*/
+
 use lesspass::{self, CharacterSet};
 
 pub struct PasswordOptions {
@@ -12,23 +23,17 @@ pub struct PasswordOptions {
     pub counter: u32,
 }
 
-/// Generates a password based on given parameters.
-///
-/// # Arguments
-///
-/// * `domain` - A string slice representing the domain name associated with the password.
-/// * `login` - A string slice representing the login associated with the password.
-/// * `master_password` - A string slice representing the master password used for generation.
-/// * `lowercase` - A boolean indicating whether lowercase characters are included.
-/// * `uppercase` - A boolean indicating whether uppercase characters are included.
-/// * `digits` - A boolean indicating whether digits are included.
-/// * `symbols` - A boolean indicating whether symbols are included.
-/// * `length` - The length of the password to be generated.
-/// * `counter` - A counter value for generating the salt.
-///
-/// # Returns
-///
-/// A string representing the generated password.
+/*
+    Generates a password based on the provided options.
+
+    # Arguments
+
+    * `options` - A `PasswordOptions` struct containing parameters for generating the password.
+
+    # Returns
+
+    A string representing the generated password.
+*/
 pub fn generate_password(options: PasswordOptions) -> String {
     let salt = lesspass::generate_salt(&options.domain, &options.login, options.counter);
     let entropy = lesspass::generate_entropy(
@@ -46,18 +51,20 @@ pub fn generate_password(options: PasswordOptions) -> String {
     lesspass::render_password(&entropy, charset, options.length)
 }
 
-/// Generates a character set based on given parameters.
-///
-/// # Arguments
-///
-/// * `lowercase` - A boolean indicating whether lowercase characters are included.
-/// * `uppercase` - A boolean indicating whether uppercase characters are included.
-/// * `digits` - A boolean indicating whether digits are included.
-/// * `symbols` - A boolean indicating whether symbols are included.
-///
-/// # Returns
-///
-/// A CharacterSet enum representing the generated character set.
+/*
+    Generates a character set based on the provided options.
+
+    # Arguments
+
+    * `lowercase` - A boolean indicating whether to include lowercase characters.
+    * `uppercase` - A boolean indicating whether to include uppercase characters.
+    * `digits` - A boolean indicating whether to include digits.
+    * `symbols` - A boolean indicating whether to include symbols.
+
+    # Returns
+
+    A `CharacterSet` enum representing the generated character set.
+*/
 fn generate_charset(lowercase: bool, uppercase: bool, digits: bool, symbols: bool) -> CharacterSet {
     let mut charset = CharacterSet::All;
     if !lowercase {
