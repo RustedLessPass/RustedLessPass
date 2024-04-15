@@ -97,3 +97,84 @@ pub fn fingerprint_calculate(input: &str) -> Vec<String> {
     // Return the vector of hashed input icons
     hashed_input_icons
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_fingerprint_calculate_empty_input() {
+        // Arrange
+        let input = "";
+        let expected_output = vec![
+            "fa-heart".to_string(),
+            "fa-brands fa-rust".to_string(),
+            "fa-rocket".to_string(),
+        ];
+
+        // Act
+        let result = fingerprint_calculate(input);
+
+        // Assert
+        assert_eq!(result, expected_output);
+    }
+
+    #[test]
+    fn test_fingerprint_calculate_non_empty_input_0() {
+        // Arrange
+        let input = "lorem ipsum";
+        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
+        // You need to provide expected values manually or mock the functions for testing purposes.
+        let expected_output = vec![
+            "fa-car".to_string(),     // Provide expected icon for the first segment
+            "fa-hashtag".to_string(), // Provide expected icon for the second segment
+            "fa-bug".to_string(),     // Provide expected icon for the third segment
+        ];
+
+        // Act
+        let result = fingerprint_calculate(input);
+
+        // Assert
+        assert_eq!(result, expected_output);
+    }
+
+    #[test]
+    fn test_fingerprint_calculate_non_empty_input_1() {
+        // Arrange
+        let input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque sodales ut etiam sit amet nisl purus in mollis.";
+        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
+        // You need to provide expected values manually or mock the functions for testing purposes.
+        let expected_output = vec![
+            "fa-rocket".to_string(),  // Provide expected icon for the first segment
+            "fa-coffee".to_string(),  // Provide expected icon for the second segment
+            "fa-cutlery".to_string(), // Provide expected icon for the third segment
+        ];
+
+        // Act
+        let result = fingerprint_calculate(input);
+
+        // Assert
+        assert_eq!(result, expected_output);
+    }
+
+    #[test]
+    fn test_fingerprint_calculate_non_empty_input_2() {
+        // Arrange
+        let input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque sodales ut etiam sit amet nisl purus in mollis. Eu consequat ac felis donec et odio pellentesque diam volutpat. Mi in nulla posuere sollicitudin. Euismod quis viverra nibh cras. Tristique nulla aliquet enim tortor at auctor urna nunc. Dignissim convallis aenean et tortor at. Turpis egestas pretium aenean pharetra. Sed vulputate odio ut enim. Faucibus et molestie ac feugiat. Donec ultrices tincidunt arcu non sodales neque sodales ut etiam. Donec pretium vulputate sapien nec sagittis aliquam malesuada. Mauris cursus mattis molestie a iaculis. Hendrerit gravida rutrum quisque non. Enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Et leo duis ut diam quam nulla. Quam lacus suspendisse faucibus interdum posuere lorem. Adipiscing elit ut aliquam purus sit amet. Consectetur adipiscing elit ut aliquam purus sit amet. Erat imperdiet sed euismod nisi porta lorem mollis.";
+        // Expected output depends on the actual implementation of get_fingerprint and get_icon functions,
+        // You need to provide expected values manually or mock the functions for testing purposes.
+        let expected_output = vec![
+            "fa-university".to_string(),     // Provide expected icon for the first segment
+            "fa-coffee".to_string(), // Provide expected icon for the second segment
+            "fa-hotel".to_string(),     // Provide expected icon for the third segment
+        ];
+
+        // Act
+        let result = fingerprint_calculate(input);
+
+        // Assert
+        assert_eq!(result, expected_output);
+    }
+
+    // Add more test cases as needed...
+}
