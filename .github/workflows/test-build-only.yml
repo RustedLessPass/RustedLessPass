@@ -1,8 +1,8 @@
 name: "test-on-pr"
 
 on:
-  pull_request_review:
-    types: [submitted,edited]
+  pull_request:
+    types: [ready_for_review, review_requested]
 
 # This workflow will build your tauri app without uploading it anywhere.
 
