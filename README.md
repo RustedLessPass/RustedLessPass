@@ -1,16 +1,18 @@
 # RustedLessPass 
 
-A password manager built in Rust, compatible with [LessPass](https://github.com/lesspass/lesspass).
+**Tired of juggling weak passwords?** RustedLessPass empowers you to manage your login credentials securely and conveniently. Built with Rust and WebAssembly, RustedLessPass offers a platform-independent solution for your password needs.
 
-Powered by Yew for WebAssembly compatibility, it runs directly in your web browser, so there's no need for any server computation—only for delivering the app.
+## **Key Features:**
 
-Inspired by LessPass, it follows the same principles but works independently.
+- **LessPass Compatibility:** Enjoy a familiar user experience.
+- **WebAssembly Power:** Run RustedLessPass directly in your web browser, eliminating server-side dependencies and keeping your data entirely under your control.
+- **Cross-Platform Access:** Manage your passwords from any device with a modern web browser, no matter the operating system.
+- **Open-Source Transparency:** Benefit from the power and security of open-source development, allowing for community contributions and independent audits.
 
-This means you can generate strong passwords without relying on external servers.
+## **Installation:**
 
-## [Installer](https://github.com/RustedLessPass/RustedLessPass/releases/latest)
-
-For desktop users, convenient PC installers are accessible via [this link](https://github.com/RustedLessPass/RustedLessPass/releases/latest). If you're using a mobile device, please use the Progressive Web App (PWA) for seamless installation and usage.
+- **Recommended:** Use the Progressive Web App (PWA) version for seamless browser and device integration.
+- **Alternative:** Accessible installers are available for Firefox and traditional PC installs [link to installers](https://github.com/RustedLessPass/RustedLessPass/releases/latest).
 
 ## Screenshot
 
@@ -28,9 +30,9 @@ To use RustedLessPass:
 
 You can then use the generated password when signing up or logging into websites, without the need to store or remember individual passwords.
 
-## Installation
+## **Building Locally (Optional):**
 
-To run RustedLessPass locally, follow these steps:
+This section is intended for developers who want to contribute or run the application locally.
 
 1. Clone the repository:
 ```bash
@@ -62,13 +64,12 @@ Contributions to RustedLessPass are welcome! If you find any issues or have sugg
 Sincere gratitude to:
 
 - [Pico CSS](https://picocss.com)
-- [lesspass](https://github.com/lesspass/lesspass)
+- [Lesspass](https://github.com/lesspass/lesspass)
 - [lesspass.rs](https://github.com/71/lesspass.rs)
+- [Tauri](https://tauri.app/)
 - [Yew Framework](https://yew.rs)
 - [Rust Programming Language](https://rust-lang.org)
 
 ## License
 
 RustedLessPass is licensed under the [GPL-3.0 License](LICENSE).
-
-<br/>README made with ChatGPT.
