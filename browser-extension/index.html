@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="A stateless Password Manager." />
+    <meta name="theme-color" content="#D24317" />
+    <link rel="manifest" href="./manifest.json" />
+    <base href="/" />
+    <script type="module" src="head.js"></script>
+
+    <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="assets/fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="assets/fontawesome/css/solid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/pico.orange.min.css" />
+    <link rel="stylesheet" href="/index.css" />
+    <style>
+      body {
+        width: 400px;
+        height: 300px;
+        font-size: medium;
+        overflow: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 0%;
+      }
+      nav {
+        display: none;
+      }
+    </style>
+    <link
+      rel="icon"
+      href="assets/icons/maskable_icon_x512.ico"
+      type="image/x-icon"
+    />
+    <title>RustedLessPass</title>
+
+    <link
+      rel="modulepreload"
+      href="/rustedlesspass-web.js"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/rustedlesspass-web_bg.wasm"
+      crossorigin="anonymous"
+      as="fetch"
+      type="application/wasm"
+    />
+  </head>
+  <body>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
